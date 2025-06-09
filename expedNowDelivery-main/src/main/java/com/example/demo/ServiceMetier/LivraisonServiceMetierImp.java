@@ -31,19 +31,19 @@ public class LivraisonServiceMetierImp {
     this.userMetierService = userMetierService;
     this.userRepository = userRepository;
   }
+ 
 
-  
-   public void assignerLivreurEtChangerStatut(Long livraisonId) {
+      public void assignerLivreurProcheEtChangerStatut(Long livraisonId) {
     Livraison livraison = livraisonRepository.findById(livraisonId)
-            .orElseThrow(() -> new RuntimeException("Livraison introuvable"));
+            .orElseThrow(() -> new RuntimeException("Livraison introuvable."));
 
     if (!livraison.getStatut().equals(LivraisonStatus.CREER)) {
-        throw new IllegalStateException("La livraison n'est pas encore au statut 'CREER'.");
+        throw new IllegalStateException("La livraison n'est pas dans un état assignable.");
     }
 
     DemandeLivraison demande = livraison.getDemandeLivraison();
     if (demande == null) {
-        throw new RuntimeException("Aucune demande associée à cette livraison");
+        throw new RuntimeException("Aucune demande associée à cette livraison.");
     }
 
     double latitudeClient = demande.getLatitude();
@@ -52,9 +52,17 @@ public class LivraisonServiceMetierImp {
     Optional<User> livreurPlusProche = userMetierService.getLivreurDispoEtProche(latitudeClient, longitudeClient);
 
     if (livreurPlusProche.isPresent()) {
-        livraison.setLivreur(livreurPlusProche.get());
+        User livreur = livreurPlusProche.get();
+
+        if (!Set.of(UserRole.LIVREUR_PERMANENT, UserRole.LIVREUR_OCCASIONNEL).contains(livreur.getRole())) {
+            throw new RuntimeException("Le rôle du livreur n'est pas valide.");
+        }
+
+        livraison.setLivreur(livreur);
         livraison.setStatut(LivraisonStatus.EN_COURS);
+
         demande.setStatus(DemandeLivraisonStatus.EN_COURS);
+
         livraisonRepository.save(livraison);
         demandeLivraisonRepository.save(demande);
     } else {
@@ -62,9 +70,7 @@ public class LivraisonServiceMetierImp {
     }
 }
 
-
-
-        public void annulerLivraisonParLivreur(Long livraisonId,Long userId){
+   public void annulerLivraisonParLivreur(Long livraisonId,Long userId){
           
         
                  User  user=userRepository.findById(userId).orElseThrow(() -> new RuntimeException("user introuvable"));

@@ -5,8 +5,7 @@ import com.example.demo.ModelDomain.Livraison;
 import com.example.demo.ModelDomain.User;
 
 public interface LivraisonServiceMetier {
-    Livraison changerStatutLivraison(Livraison livraison);
-    void annulerLivraisonParLivreur(Livraison livraison,User user,DemandeLivraison demandeLivraison);
-    void assignerLivreur(Livraison livraisonId) ;
-
+void assignerLivreurProcheEtChangerStatut(Long livraisonId);
+void livraisonAchever(Long livraisonId , Long livreurId);
+ void annulerLivraisonParLivreur(Long livraisonId,Long userId);
 }

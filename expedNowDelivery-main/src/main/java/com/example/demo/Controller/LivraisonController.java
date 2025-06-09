@@ -17,7 +17,15 @@ public class LivraisonController {
         this.livraisonServiceApplicatif=livraisonServiceApplicatif;
     }
 
-@PreAuthorize("hasAnyRole('LIVREUR_PERMANENT', 'LIVREUR_OCCASIONNEL')")
+@PutMapping("{/livraisonId}/assigner-livreur")
+public ResponseEntity<Void> assignerLivreurProcheEtChangerStatut(@PathVariable Long livrasionId)  
+        
+        {
+            livraisonServiceApplicatif.assignerLivreurEtChangerStatut(livrasionId);
+                return ResponseEntity.ok().build();
+            
+        }
+
 
 
 }

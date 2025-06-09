@@ -16,7 +16,16 @@ public class LivraisonServiceApplicatif {
     }
 
 
- public void changerStatusLivraison(Long userId, Long livraisonId) {
-    
- }
+    public void assignerLivreurEtChangerStatut(Long livraisonId){
+        livraisonServiceMetier.assignerLivreurEtChangerStatut(livraisonId);
+    }
+
+   public   void annulerLivraisonParLivreur(Long livraisonId,Long userId){
+       livraisonServiceMetier.annulerLivraisonParLivreur(livraisonId, userId);
+   }
+
+   public void livraisonAchever(Long livraisonId , Long livreurId){
+       livraisonServiceMetier.livraisonAchever(livraisonId, livreurId);
+   }
+
 }
