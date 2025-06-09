@@ -32,46 +32,35 @@ public class LivraisonServiceMetierImp {
     this.userRepository = userRepository;
   }
 
+  
+   public void assignerLivreurEtChangerStatut(Long livraisonId) {
+    Livraison livraison = livraisonRepository.findById(livraisonId)
+            .orElseThrow(() -> new RuntimeException("Livraison introuvable"));
 
+    if (!livraison.getStatut().equals(LivraisonStatus.CREER)) {
+        throw new IllegalStateException("La livraison n'est pas encore au statut 'CREER'.");
+    }
 
+    DemandeLivraison demande = livraison.getDemandeLivraison();
+    if (demande == null) {
+        throw new RuntimeException("Aucune demande associée à cette livraison");
+    }
 
-     
-   public void changerStatusLivraison(Long userId, Long livraisonId) {
+    double latitudeClient = demande.getLatitude();
+    double longitudeClient = demande.getLongitude();
 
-                Livraison   livraison = livraisonRepository.findById(livraisonId).orElseThrow(() -> new RuntimeException("livraison introuvable"));
-        
-                 User    user=userRepository.findById(userId).orElseThrow(() -> new RuntimeException("Demande introuvable"));
+    Optional<User> livreurPlusProche = userMetierService.getLivreurDispoEtProche(latitudeClient, longitudeClient);
 
-                    if (!Set.of(UserRole.LIVREUR_PERMANENT, UserRole.LIVREUR_OCCASIONNEL).contains(user.getRole()))
-                     {
-
-                      throw new RuntimeException("Rôle non autorisé pour accepter une demande");
-                    
-                      }
-                      if (!livraison.getStatut().equals(LivraisonStatus.CREER)){
-                        throw new IllegalStateException("La livraison n'est pas encore créée.");
-                      }
-                DemandeLivraison demande =  livraison.getDemandeLivraison();
-                  if( demande == null){
-                    throw new RuntimeException("Aucune demande associée à cette livraison");
-                  }
-                   
-                // Récupérer la position du client depuis la demande
-                 double latitudeClient = demande.getLatitude();
-                 double longitudeClient = demande.getLongitude();
-
-                // Appel à la méthode pour trouver le livreur le plus proche
-                Optional<User> livreurplusproche = userMetierService.getLivreurDispoEtProche(latitudeClient,longitudeClient);
-                 
-                if (livreurplusproche.isPresent()){
-
-                  livraison.setLivreur(livreurplusproche.get());
-                  livraison.setStatut(LivraisonStatus.EN_COURS);
-                  demande.setStatus(DemandeLivraisonStatus.EN_COURS);
-                  livraison.setDemandeLivraison(demande);
-                   
-                }
-                }
+    if (livreurPlusProche.isPresent()) {
+        livraison.setLivreur(livreurPlusProche.get());
+        livraison.setStatut(LivraisonStatus.EN_COURS);
+        demande.setStatus(DemandeLivraisonStatus.EN_COURS);
+        livraisonRepository.save(livraison);
+        demandeLivraisonRepository.save(demande);
+    } else {
+        throw new RuntimeException("Aucun livreur disponible à proximité.");
+    }
+}
 
 
 
