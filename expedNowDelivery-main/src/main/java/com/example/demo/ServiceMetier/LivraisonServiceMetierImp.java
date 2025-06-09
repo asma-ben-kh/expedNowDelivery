@@ -94,9 +94,9 @@ public class LivraisonServiceMetierImp {
 
                 }
 
-      public void livraisonAchever(Long livraisonId , Long livreurId){
+      public void livraisonAchever(Long livraisonId , Long userId){
 
-        User  livreur=userRepository.findById(livreurId).orElseThrow(() -> new RuntimeException("user  introuvable"));
+        User  livreur=userRepository.findById(userId).orElseThrow(() -> new RuntimeException("user  introuvable"));
 
         Livraison  livraison=livraisonRepository.findById(livraisonId).orElseThrow(() -> new RuntimeException("livraison introuvable"));
 

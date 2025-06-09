@@ -26,7 +26,6 @@ public class UserController {
         this.userServiceApplicatif = userServiceApplicatif;
         }
 
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
     @PostMapping("/admin")
     public  ResponseEntity<UserDTO> saveAdmin(@RequestBody UserDTO userDTO){
         

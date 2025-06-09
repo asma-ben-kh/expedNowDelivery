@@ -17,6 +17,9 @@ import jakarta.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DemandeLivraisonDTO {
+    
+    private Long id;
+
 
     @NotNull(message = "dateCreationDemande is mandatory")
     private LocalDate dateCreationDemande;
@@ -27,7 +30,17 @@ public class DemandeLivraisonDTO {
     @NotEmpty(message = "colis cannot empty")
     private List<ColisDTO> colis;
 
-    
 
+    private DemandeLivraisonStatus status;
+
+
+    private double latitude;
+
+    private double longitude;
+
+    
 }
+
+
+
 

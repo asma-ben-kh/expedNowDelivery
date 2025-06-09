@@ -40,8 +40,50 @@ public class UserServiceApp {
         return userMapper.toDto(usersaved);
 
     }
+ public UserDTO saveAdmin(UserDTO userDTO){
+    //fixe dans le dto
+    userDTO.setRole(UserRole.ADMIN);
+    //transforme en entity
+    User user = userMapper.toEntity(userDTO);
+    User userSaved = userMetierService.saveUser(user);
+    return userMapper.toDto(userSaved);
+}
+ public UserDTO saveLivreurPermenant(UserDTO userDTO){
+    //fixe dans le dto
+    userDTO.setRole(UserRole.LIVREUR_PERMANENT);
+    //transforme en entity
+    User user = userMapper.toEntity(userDTO);
+    User userSaved = userMetierService.saveUser(user);
+    return userMapper.toDto(userSaved);
+}
+ public UserDTO saveLivreurOccasionnel(UserDTO userDTO){
+    //fixe dans le dto
+    userDTO.setRole(UserRole.LIVREUR_OCCASIONNEL);
+    //transforme en entity
+    User user = userMapper.toEntity(userDTO);
+    User userSaved = userMetierService.saveUser(user);
+    return userMapper.toDto(userSaved);
+}
 
- 
+
+ public UserDTO saveClientEntrprise(UserDTO userDTO){
+    //fixe dans le dto
+    userDTO.setRole(UserRole.CLIENT_ENTREPRiSE);
+    //transforme en entity
+    User user = userMapper.toEntity(userDTO);
+    User userSaved = userMetierService.saveUser(user);
+    return userMapper.toDto(userSaved);
+}
+
+ public UserDTO saveClientProfessionnel(UserDTO userDTO){
+    //fixe dans le dto
+    userDTO.setRole(UserRole.CLIENT_PROFESSIONNEL);
+    //transforme en entity
+    User user = userMapper.toEntity(userDTO);
+    User userSaved = userMetierService.saveUser(user);
+    return userMapper.toDto(userSaved);
+}
+
     public UserDTO getUserById(Long id) {
         User user = userMetierService.getUserById(id);
        return  userMapper.toDto(user);
@@ -68,28 +110,11 @@ public void activateUser(Long id) {
 }
 
 
-public User putUser(Long id, UserDTO userDTO){
+public UserDTO putUser(Long id, UserDTO userDTO){
     
       User user = userMapper.toEntity(userDTO);
       User userupdated = userMetierService.updateUser(id, user);
-      return userupdated;
+      return userMapper.toDto(userupdated);
 }
 }
-    /* 
-    public AdminDTO creerSuperAdminSiAbsent(){
-        if(!adminMetierService.superAdminExiste()){
-            Admin superAdmin = new Admin(
-                "SuperAdmin",
-                "admin123",
-                "superadmin@example.com",
-                AdminRole.SUPER_ADMIN,
-                true
-            );
-            superAdmin.setPassword(passwordEncoder.encode(superAdmin.getPassword()));
-            Admin saved = adminMetierService.saveAdmin(superAdmin);
-            return adminMapper.toDTO(saved);
-                }
-        return null;
-    }
-
-*/
+    

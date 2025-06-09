@@ -17,7 +17,7 @@ public class LivraisonController {
         this.livraisonServiceApplicatif=livraisonServiceApplicatif;
     }
 
-@PutMapping("{/livraisonId}/assigner-livreur")
+@PutMapping("{/livraisonId}/changerstatut")
 public ResponseEntity<Void> assignerLivreurProcheEtChangerStatut(@PathVariable Long livrasionId)  
         
         {
@@ -26,6 +26,27 @@ public ResponseEntity<Void> assignerLivreurProcheEtChangerStatut(@PathVariable L
             
         }
 
+        
+@PutMapping("/{livraisonId}/annuler")
+public ResponseEntity<Void> annulerLivraisonParLivreur(
+     
+       @PathVariable Long livraisonId,
+       @RequestParam Long userId
+)
+{
+    livraisonServiceApplicatif.annulerLivraisonParLivreur(livraisonId, userId);
+    return ResponseEntity.ok().build();
+}
 
+@PutMapping("/{livraisonId}/achever")
+public ResponseEntity<Void> livraisonAchever(
+    
+       @PathVariable Long livraisonId,
+       @RequestParam  Long userId
+)
+{
+    livraisonServiceApplicatif.livraisonAchever(livraisonId, userId);
+    return ResponseEntity.ok().build();
+}
 
 }
