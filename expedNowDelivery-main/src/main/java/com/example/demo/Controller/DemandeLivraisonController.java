@@ -3,6 +3,7 @@ import com.example.demo.ServiceApplicatif.DemandeLivraisonServiceApp;
 
 import jakarta.validation.Valid;
 
+import java.io.FileNotFoundException;
 import java.net.http.HttpRequest;
 
 import org.springframework.http.HttpStatus;
@@ -44,11 +45,11 @@ public class DemandeLivraisonController {
     //pathvariable: recupere un variable dynamique depuia l url 
     public ResponseEntity<DemandeLivraisonDTO> updatedDemande(
         
-          @PathVariable Long id,
+          @PathVariable Long demandeId,
           @RequestBody  @Valid DemandeLivraisonDTO updatedDemande)
         {
 
-        DemandeLivraisonDTO demande= demandeLivraisonServiceApp.update(id, updatedDemande);
+        DemandeLivraisonDTO demande= demandeLivraisonServiceApp.updateDemande(demandeId, updatedDemande);
         return ResponseEntity.ok(demande);
         }
 
@@ -65,45 +66,23 @@ public class DemandeLivraisonController {
     }
 
 
+    @DeleteMapping("/{demandeId}")
+    public ResponseEntity<Void> deleteDemande(@PathVariable Long demandeId)
+    {
+        try{
+            demandeLivraisonServiceApp.deleteDemande(demandeId);
+            return ResponseEntity.ok("demande supprime avec succes");
 
+        } catch (RuntimeException e) {
 
-     @PutMapping("/{id}/accepter")
-    public ResponseEntity<Void> acceptationParLivreur(
-        @PathVariable Long id,
-        @RequestParam Long livreurId) {
-    
-    demandeLivraisonServiceApp.acceptationParLivreur(livreurId, id);
-    return ResponseEntity.ok().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
+    
 
-    @PutMapping("/{livraisonId}/annulerL")
-    public ResponseEntity<Void> annulerLivraisonParClient(
-        @PathVariable Long livraisonId,
-        @RequestParam Long demandeId,
-        @RequestParam Long userId) {
-            
-    demandeLivraisonServiceApp.annulerLivraisonParClient(livraisonId, userId,demandeId );
-    return ResponseEntity.ok().build();
-        }
 
-    @PostMapping("/{livraisonId}/commencerL")
-    public ResponseEntity<Void> commencerLivraison(
-         @PathVariable Long livraisonId,
-         @RequestParam Long livreurId) {
+      
 
-    demandeLivraisonServiceApp.commencerLivraison(livraisonId, livreurId);
-    return ResponseEntity.ok().build();
-}
-
-  @PutMapping("/{livraisonId}/acheverL")
-  public ResponseEntity<Void> livraisonAchever(
-       @PathVariable Long livraisonId,
-       @RequestParam Long livreurId ) {
-
-    demandeLivraisonServiceApp.livraisonAchever(livraisonId, livreurId);
-    return ResponseEntity.ok().build();
-     
-}
 
 }

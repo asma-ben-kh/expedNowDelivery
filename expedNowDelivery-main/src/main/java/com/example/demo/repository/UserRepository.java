@@ -14,7 +14,7 @@ public interface UserRepository extends JpaRepository<User , Long>{
     
     List<User>  findByRoleNot (UserRole role);
     Optional<User> findByUserName(String username);
-    List<User> findAllByRoleIn(List<UserRole> roles);
+    List<User> findAllByRoleIn(UserRole role);
     List<User> findAllByRoleInDisponibleTrue(List<UserRole> roles);
 
     User findById(User userId);

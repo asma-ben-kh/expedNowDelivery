@@ -76,14 +76,11 @@ public User getUserById(Long id) {
 
 }
 
-public List<User> getAllUserByRole(){
-    return userRepository.findByRoleNot(UserRole.SUPER_ADMIN);
+public List<User> getAllUserByRole(UserRole role){
+    return userRepository.findAllByRoleIn(role);
    }
 
-   public List<User>getAllLivreur(){
-
-    return userRepository.findAllByRoleIn(List.of(UserRole.LIVREUR_PERMANENT,UserRole.LIVREUR_OCCASIONNEL));
-   }
+ 
 
 public void desactiveUser(Long id){
 
@@ -124,13 +121,13 @@ public void activateUser(Long id) {
 
 public List<User>  getLivreursdispos(){
 
- return userRepository.findAllByRoleInDisponibleTrue(
-        List.of(UserRole.LIVREUR_OCCASIONNEL, UserRole.LIVREUR_PERMANENT)
-    );                                  
+        return userRepository.findAllByRoleInDisponibleTrue(
+                List.of(UserRole.LIVREUR_OCCASIONNEL, UserRole.LIVREUR_PERMANENT)
+            );                                  
 }
 
 
-  private double calculerDistance(double lat1, double lon1, double lat2, double lon2) {
+private double calculerDistance(double lat1, double lon1, double lat2, double lon2) {
     final int R = 6371; // Rayon de la Terre en km
 
     double latDistance = Math.toRadians(lat2 - lat1);
@@ -155,19 +152,7 @@ public List<User>  getLivreursdispos(){
         return Optional.ofNullable(userplusProche);
        }
 
-/**
- * @return the userRepository
- */
-public UserRepository getUserRepository() {
-    return userRepository;
-}
-
-/**
- * @return the passwordEncoder
- */
-public PasswordEncoder getPasswordEncoder() {
-    return passwordEncoder;
-}
+    }
 
 
 
@@ -175,4 +160,3 @@ public PasswordEncoder getPasswordEncoder() {
 
 
 
-}

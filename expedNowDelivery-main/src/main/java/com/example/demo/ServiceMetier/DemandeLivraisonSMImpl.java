@@ -61,7 +61,7 @@ public class DemandeLivraisonSMImpl implements DemandeLivraisonServiceMetier{
   
           
      
-     public DemandeLivraison update(Long id, DemandeLivraison updatedDemande) {  
+     public DemandeLivraison updateDemande(Long id, DemandeLivraison updatedDemande) {  
 
         return demandeLivraisonRepository.findById(id)
         .map(existing -> {

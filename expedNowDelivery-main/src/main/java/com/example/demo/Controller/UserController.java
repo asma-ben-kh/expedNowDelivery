@@ -38,7 +38,6 @@ public class UserController {
 
     }
 
-    @PreAuthorize("hasRole('SUPER_ADMIN','ADMIN')")
     @PostMapping("/livreurpermemnant")
     public ResponseEntity<UserDTO> saveLivreurpermenant(@RequestBody UserDTO userDTO){
 
@@ -90,6 +89,26 @@ public class UserController {
                         
     }
      
+@GetMapping("/{userId}")
+public ResponseEntity<UserDTO> getUserById(@PathVariable Long userId){
+   try {
+       return  userServiceApplicatif.getUserById(userId);
+   } catch (RuntimeException e) {
+       return (e.getMessage());
+   }
+
+   
+}
+
+@GetMapping("/{role}")
+public ResponseEntity<List<UserDTO>> getAllUserByRole(@PathVariable UserRole role){
+  
+   List<UserDTO> users = userServiceApplicatif.getAllUserByRole(role);
+
+    return ResponseEntity.ok(users);
+  
+}
+
 
 
 }

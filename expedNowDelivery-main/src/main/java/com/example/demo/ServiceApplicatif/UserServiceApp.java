@@ -41,21 +41,25 @@ public class UserServiceApp {
 
     }
  public UserDTO saveAdmin(UserDTO userDTO){
-    //fixe dans le dto
-    userDTO.setRole(UserRole.ADMIN);
-    //transforme en entity
-    User user = userMapper.toEntity(userDTO);
-    User userSaved = userMetierService.saveUser(user);
-    return userMapper.toDto(userSaved);
+            //fixe dans le dto
+            userDTO.setRole(UserRole.ADMIN);
+            //transforme en entity
+            User user = userMapper.toEntity(userDTO);
+            User userSaved = userMetierService.saveUser(user);
+            return userMapper.toDto(userSaved);
 }
+
+
  public UserDTO saveLivreurPermenant(UserDTO userDTO){
-    //fixe dans le dto
-    userDTO.setRole(UserRole.LIVREUR_PERMANENT);
-    //transforme en entity
-    User user = userMapper.toEntity(userDTO);
-    User userSaved = userMetierService.saveUser(user);
-    return userMapper.toDto(userSaved);
+            //fixe dans le dto
+            userDTO.setRole(UserRole.LIVREUR_PERMANENT);
+            //transforme en entity
+            User user = userMapper.toEntity(userDTO);
+            User userSaved = userMetierService.saveUser(user);
+            return userMapper.toDto(userSaved);
 }
+
+
  public UserDTO saveLivreurOccasionnel(UserDTO userDTO){
     //fixe dans le dto
     userDTO.setRole(UserRole.LIVREUR_OCCASIONNEL);
@@ -84,21 +88,24 @@ public class UserServiceApp {
     return userMapper.toDto(userSaved);
 }
 
-    public UserDTO getUserById(Long id) {
-        User user = userMetierService.getUserById(id);
+public UserDTO getUserById(Long id) {
+
+       User user = userMetierService.getUserById(id);
        return  userMapper.toDto(user);
            
     }
 
-    public List<UserDTO> getAllUsersByRole(){
-        List<User> users = userMetierService.getAllUserByRole();
+public List<UserDTO> getAllUserByRole(UserRole role){
+
+        List<User> users = userMetierService.getAllUserByRole(role);
         return userMapper.toDtoList(users);
+
        }
     
   
-       public void desactiveUser(Long id){
+ public void desactiveUser(Long id){
         
-            userMetierService.desactiveUser(id);
+        userMetierService.desactiveUser(id);
 
        }
 
@@ -110,11 +117,16 @@ public void activateUser(Long id) {
 }
 
 
-public UserDTO putUser(Long id, UserDTO userDTO){
+public UserDTO updateUser(Long id, UserDTO userDTOupdated){
     
-      User user = userMapper.toEntity(userDTO);
+      User user = userMapper.toEntity(userDTOupdated);
       User userupdated = userMetierService.updateUser(id, user);
       return userMapper.toDto(userupdated);
 }
+
+
+ Optional<UserDTO> getLivreurDispoEtProche(double latitudeDemande ,double longitudeDemande ){
+      return userMetierService.getLivreurDispoEtProche(latitudeDemande, longitudeDemande).map(userMapper::toDto);
+ }
 }
     

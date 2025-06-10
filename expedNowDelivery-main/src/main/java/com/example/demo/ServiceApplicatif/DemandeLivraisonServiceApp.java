@@ -32,14 +32,8 @@ public class DemandeLivraisonServiceApp {
          return demandeLivraisonMapper.toDto(saved);
      }
          
-     public LivraisonDTO saveLivraison(LivraisonDTO livraisonDTO){
-
-        Livraison livraison = livraisonMapper.toEntity(livraisonDTO);
-        Livraison saved = demandeLivraisonServiceMetier.saveLivraison(livraison);
-        return livraisonMapper.toDto(saved);
-           
-     }
-     public DemandeLivraisonDTO update (long id,DemandeLivraisonDTO demandeLivraisonDTO){
+ 
+     public DemandeLivraisonDTO updateDemande (long id,DemandeLivraisonDTO demandeLivraisonDTO){
 
         DemandeLivraison demandeLivraison = demandeLivraisonMapper.toEntity(demandeLivraisonDTO);
         DemandeLivraison updated = demandeLivraisonServiceMetier.update(id, demandeLivraison);
@@ -47,31 +41,19 @@ public class DemandeLivraisonServiceApp {
      }
 
       public void annulerDemandeParClient(Long demandeId, long userId) {
+         
         demandeLivraisonServiceMetier.annulerDemandeParClient(demandeId, userId);
        
     }
 
-    public void acceptationParLivreur(Long userId, Long demandeId) {
-       demandeLivraisonServiceMetier.AcceptationParlivreur(userId, demandeId);
-    }
- 
-     public void annulerLivraisonParClient(Long  livraisonId, Long userId, Long demandeId) {
+      public void deleteDemande(Long id){
 
-        demandeLivraisonServiceMetier.annulerLivraisonParClient(livraison, user, demandeLivraison);
-    }
-
-    public void commencerLivraison(Long livraisonId, Long userId) {
-
-        demandeLivraisonServiceMetier.CommencerLivraison(livraisonId, userId);
-
-    }
-
-    public void livraisonAchever(Long livraisonId, Long userId) {
-        
-      
-       demandeLivraisonServiceMetier.livraisonAchever(livraisonId,  userId);   
+         demandeLivraisonServiceMetier.deleteDemande(id);
+              
+            }
     
-    }
+    
+
 
 }
 
