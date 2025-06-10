@@ -28,14 +28,16 @@ public class DemandeLivraisonDTO {
     private Long clientId; 
 
     @NotEmpty(message = "colis cannot empty")
+    @Valid
     private List<ColisDTO> colis;
 
 
     private DemandeLivraisonStatus status;
 
-
+   @NotNull
     private double latitude;
-
+    
+   @NotNull
     private double longitude;
 
     

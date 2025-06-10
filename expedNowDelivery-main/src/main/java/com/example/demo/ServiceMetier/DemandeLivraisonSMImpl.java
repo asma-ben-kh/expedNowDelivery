@@ -109,6 +109,8 @@ public class DemandeLivraisonSMImpl implements DemandeLivraisonServiceMetier{
                   }
 
                   demandeLivraison.setStatus(DemandeLivraisonStatus.ANNULER);
+                  Livraison livraison=demandeLivraison.getLivraison();
+                  livraison.setStatut(LivraisonStatus.ANNULER);
                   saveDemandeLivraison(demandeLivraison);
 
             }      

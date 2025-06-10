@@ -38,29 +38,34 @@ public class DemandeLivraisonController {
       
         }
 
-    @PostMapping("/savelivraison")
-    public ResponseEntity<LivraisonDTO> saveLivraison(@RequestBody LivraisonDTO livraisonDTO){
-        LivraisonDTO savedLivraison = demandeLivraisonServiceApp.saveLivraison(livraisonDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedLivraison);
-    }
 
     
     @PutMapping("/{id}")
     //pathvariable: recupere un variable dynamique depuia l url 
-    public ResponseEntity<DemandeLivraisonDTO> update(@PathVariable Long id,@RequestBody DemandeLivraisonDTO updatedDemande){
-
-        DemandeLivraisonDTO demandeUpdated= demandeLivraisonServiceApp.update(id, updatedDemande);
-        return ResponseEntity.ok(demandeUpdated);
-    }
-  
-    @PutMapping("/{id}/annuler")
-    public ResponseEntity<Void> annulerDemandeParClient(
-       @PathVariable Long id, 
-       @RequestParam Long userId) {  
+    public ResponseEntity<DemandeLivraisonDTO> updatedDemande(
         
-    demandeLivraisonServiceApp.annulerDemandeParClient(id, userId);
+          @PathVariable Long id,
+          @RequestBody  @Valid DemandeLivraisonDTO updatedDemande)
+        {
+
+        DemandeLivraisonDTO demande= demandeLivraisonServiceApp.update(id, updatedDemande);
+        return ResponseEntity.ok(demande);
+        }
+
+  
+    @PutMapping("/{demandeId}/annuler")
+    public ResponseEntity<Void> annulerDemandeParClient(
+       
+       @PathVariable Long demandeId, 
+       @RequestParam Long userId) 
+    {  
+        
+    demandeLivraisonServiceApp.annulerDemandeParClient(demandeId, userId);
     return ResponseEntity.ok().build();
     }
+
+
+
 
      @PutMapping("/{id}/accepter")
     public ResponseEntity<Void> acceptationParLivreur(

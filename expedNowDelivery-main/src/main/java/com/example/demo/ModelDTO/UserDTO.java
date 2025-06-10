@@ -6,9 +6,15 @@ import lombok.Data;
 
 @Data
  public class UserDTO {
-    private Long id;  
+    private Long id;
+
+    @NotBlank(message = "Le nom complet est obligatoire.")
     private String fullName;
-    private String adress;
+    
+    @NotBlank(message = "L'adresse est obligatoire.")
+     private String adress;
+
+    @email
     private String email;
     private String phoneNumber;
     private UserRole role;
