@@ -104,13 +104,15 @@ public class DemandeLivraisonController {
    @GetMapping("/{userId}")
    public ResponseEntity<?> getByUserId(@PathVariable Long userId)
    {
-    try{
+    
         List<DemandeLivraisonDTO> demandes=demandeLivraisonServiceApp.getDemandeByUserId(userId);
+      
+        if (demandes.isEmpty()){
+            
+            return ResponseEntity.noContent().build();
+        }
+    
         return ResponseEntity.ok(demandes);
-    }catch (RuntimeException e)
-    {
-        return ResponseEntity.status(HttpStatus.N)
-    }
    }
 
 }
