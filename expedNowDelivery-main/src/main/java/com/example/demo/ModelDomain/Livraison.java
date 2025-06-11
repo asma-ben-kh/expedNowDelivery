@@ -42,10 +42,10 @@ public class Livraison {
    private User livreur;
 
 
-   public Livraison(LivraisonStatus statut, Date dateLivraison, DemandeLivraison demandeLivraison, User livreur)
+   public Livraison(LivraisonStatus statut, Date datePrevuLivraison, DemandeLivraison demandeLivraison, User livreur)
     {
         this.statut = statut;
-        this.dateLivraison = dateLivraison;
+        this.datePrevuLivraison = datePrevuLivraison;
         this.demandeLivraison = demandeLivraison;
         this.livreur = livreur;
    }

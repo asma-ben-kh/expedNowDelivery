@@ -12,6 +12,7 @@ import com.example.demo.ModelDomain.Livraison;
 import com.example.demo.ModelDomain.LivraisonStatus;
 import com.example.demo.ModelDomain.User;
 import com.example.demo.ModelDomain.UserRole;
+import com.example.demo.repository.DemandeLivraisonRepository;
 import com.example.demo.repository.LivraisonRepository;
 import com.example.demo.repository.UserRepository;
 
@@ -21,15 +22,17 @@ public class LivraisonServiceMetierImp {
   private final LivraisonRepository livraisonRepository;
   private final UserMetierService userMetierService;
   private final UserRepository userRepository;
+  private final DemandeLivraisonRepository demandeLivraisonRepository;
 
 
 
 
-  public LivraisonServiceMetierImp(DemandeLivraisonServiceMetier demandeLivraison, UserRepository userRepository, LivraisonRepository livraisonRepository, UserMetierService userMetierService){
+  public LivraisonServiceMetierImp(DemandeLivraisonServiceMetier demandeLivraison,DemandeLivraisonRepository demandeLivraisonRepository, UserRepository userRepository, LivraisonRepository livraisonRepository, UserMetierService userMetierService){
     this.demandeLivraison = demandeLivraison;
     this.livraisonRepository = livraisonRepository;
     this.userMetierService = userMetierService;
     this.userRepository = userRepository;
+    this.demandeLivraisonRepository = demandeLivraisonRepository;
   }
  
 

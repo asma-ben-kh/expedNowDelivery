@@ -1,7 +1,11 @@
 package com.example.demo.Controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.ServiceApplicatif.LivraisonServiceApplicatif;
@@ -22,7 +26,7 @@ public ResponseEntity<Void> assignerLivreurProcheEtChangerStatut(@PathVariable L
         
         {
             livraisonServiceApplicatif.assignerLivreurEtChangerStatut(livrasionId);
-                return ResponseEntity.ok().build();
+            return ResponseEntity.ok().build();
             
         }
 

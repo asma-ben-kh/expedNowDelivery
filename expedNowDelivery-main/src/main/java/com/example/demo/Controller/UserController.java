@@ -5,10 +5,14 @@ import com.example.demo.ModelDomain.UserRole;
 import com.example.demo.ModelDTO.UserDTO;
 import com.example.demo.ModelDomain.User;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,23 +96,41 @@ public class UserController {
 @GetMapping("/{userId}")
 public ResponseEntity<UserDTO> getUserById(@PathVariable Long userId){
    try {
-       return  userServiceApplicatif.getUserById(userId);
-   } catch (RuntimeException e) {
-       return (e.getMessage());
+    
+        UserDTO userDto= userServiceApplicatif.getUserById(userId);
+        return ResponseEntity.ok(userDto);
+   
+    } catch (RuntimeException e) {
+
+       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
    }
 
    
 }
 
-@GetMapping("/{role}")
+@GetMapping("/{role}/getAll")
 public ResponseEntity<List<UserDTO>> getAllUserByRole(@PathVariable UserRole role){
   
-   List<UserDTO> users = userServiceApplicatif.getAllUserByRole(role);
+     List<UserDTO> users = userServiceApplicatif.getAllUserByRole(role);
 
     return ResponseEntity.ok(users);
   
 }
 
+@PutMapping("/{userId}/desactive")
+public ResponseEntity<Void> desactiveUser(@PathVariable Long userId){
 
+     userServiceApplicatif.desactiveUser(userId);
 
+     return ResponseEntity.noContent().build();
+
+}
+
+@PutMapping("/{userId}/activate")
+public ResponseEntity<UserDTO> activateUser(@PathVariable Long userId){
+
+    UserDTO activated= userServiceApplicatif.activateUser(userId);
+
+    return ResponseEntity.ok(activated);
+}
 }

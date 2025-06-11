@@ -9,7 +9,7 @@ import com.example.demo.ModelDomain.UserRole;
 
 public interface DemandeLivraisonServiceMetier {
 
- void saveDemandeLivraison(DemandeLivraison demande);
+ DemandeLivraison saveDemandeLivraison(DemandeLivraison demande);
  DemandeLivraison updateDemande(Long id, DemandeLivraison updatedDemande);
  void annulerDemandeParClient(Long demandeId, Long  userId ); 
  void deleteDemande(Long id);

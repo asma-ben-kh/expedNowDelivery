@@ -20,7 +20,7 @@ public interface UserMetierService {
     User getUserById(Long id);
     List<User> getAllUserByRole(UserRole role);
     void desactiveUser(Long id);
-    void activateUser(Long id) ;
+    User activateUser(Long id) ;
     User updateUser(Long id, User updatedUser);
     Optional<User> getLivreurDispoEtProche(double latitudeDemande ,double longitudeDemande );
 

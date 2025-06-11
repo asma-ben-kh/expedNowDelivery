@@ -2,6 +2,8 @@ package com.example.demo.ModelDTO;
 
 import com.example.demo.ModelDomain.UserRole;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
@@ -14,8 +16,9 @@ import lombok.Data;
     @NotBlank(message = "L'adresse est obligatoire.")
      private String adress;
 
-    @email
+    @Email
     private String email;
+    
     private String phoneNumber;
     private UserRole role;
     private boolean disponible;

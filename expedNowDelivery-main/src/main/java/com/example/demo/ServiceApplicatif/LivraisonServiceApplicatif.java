@@ -17,7 +17,7 @@ public class LivraisonServiceApplicatif {
 
 
     public void assignerLivreurEtChangerStatut(Long livraisonId){
-        livraisonServiceMetier.assignerLivreurEtChangerStatut(livraisonId);
+        livraisonServiceMetier.assignerLivreurProcheEtChangerStatut(livraisonId);
     }
 
    public   void annulerLivraisonParLivreur(Long livraisonId,Long userId){

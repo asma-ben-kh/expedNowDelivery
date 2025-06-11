@@ -95,11 +95,17 @@ public void desactiveUser(Long id){
 
 
 }
-public void activateUser(Long id) {
+
+public User activateUser(Long id) {
 
     User user = getUserById(id);
+    if (user.isActive()) {
+
+        throw new IllegalStateException("L'utilisateur est déjà actif");
+    }
     user.setActive(true); // Réactivation
-    userRepository.save(user);
+    return userRepository.save(user);
+
 }
 
  public User updateUser(Long id, User updatedUser) {

@@ -36,7 +36,7 @@ public class DemandeLivraisonServiceApp {
      public DemandeLivraisonDTO updateDemande (long id,DemandeLivraisonDTO demandeLivraisonDTO){
 
         DemandeLivraison demandeLivraison = demandeLivraisonMapper.toEntity(demandeLivraisonDTO);
-        DemandeLivraison updated = demandeLivraisonServiceMetier.update(id, demandeLivraison);
+        DemandeLivraison updated = demandeLivraisonServiceMetier.updateDemande(id, demandeLivraison);
         return demandeLivraisonMapper.toDto(updated);
      }
 

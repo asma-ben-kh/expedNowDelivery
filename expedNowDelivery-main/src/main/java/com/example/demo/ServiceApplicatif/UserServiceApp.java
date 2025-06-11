@@ -8,6 +8,7 @@ import com.example.demo.ModelDTO.UserDTO;
 import com.example.demo.ServiceMetier.UserMetierService;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -110,10 +111,11 @@ public List<UserDTO> getAllUserByRole(UserRole role){
        }
 
 
-public void activateUser(Long id) {
+public UserDTO activateUser(Long id) {
      
-    userMetierService.activateUser(id);
-
+    User user= userMetierService.activateUser(id);
+    return userMapper.toDto(user);
+    
 }
 
 

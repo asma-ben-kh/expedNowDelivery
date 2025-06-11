@@ -1,6 +1,7 @@
 package com.example.demo.ServiceMetier;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.ModelDomain.Colis;
 import com.example.demo.ModelDomain.DemandeLivraison;
@@ -46,7 +47,8 @@ public class DemandeLivraisonSMImpl implements DemandeLivraisonServiceMetier{
             
           }
 
-    public void saveDemandeLivraison(DemandeLivraison demande)
+          @Transactional
+    public DemandeLivraison saveDemandeLivraison(DemandeLivraison demande)
           {
            demande.setStatus(DemandeLivraisonStatus.En_ATTENTE);
            DemandeLivraison savedDemande = demandeLivraisonRepository.save(demande);
@@ -55,6 +57,7 @@ public class DemandeLivraisonSMImpl implements DemandeLivraisonServiceMetier{
            livraison.setStatut(LivraisonStatus.CREER);
            livraison.setDemandeLivraison(savedDemande);
            livraisonRepository.save(livraison);
+           return savedDemande;
         
           }
   
@@ -109,7 +112,7 @@ public class DemandeLivraisonSMImpl implements DemandeLivraisonServiceMetier{
                   }
 
                   demandeLivraison.setStatus(DemandeLivraisonStatus.ANNULER);
-                  Livraison livraison=demandeLivraison.getLivraison();
+                  Livraison livraison=(Livraison) demandeLivraison.getLivraison();
                   livraison.setStatut(LivraisonStatus.ANNULER);
                   saveDemandeLivraison(demandeLivraison);
 
