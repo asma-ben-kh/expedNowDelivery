@@ -24,14 +24,14 @@ public class Vehicule {
      private Long numSerie;
 
      @OneToOne
-     @JoinColumn(name = "user_id" )
-     private User user;
+     @JoinColumn(name = "livreur")
+     private User livreur;
 
-     public Vehicule(Long id, String matricule, Long numSerie, User user) {
+     public Vehicule(Long id, String matricule, Long numSerie, User livreur) {
     this.id = id;
     this.matricule = matricule;
     this.numSerie = numSerie;
-    this.user = user;
+    this.livreur = livreur;
 }
 
 }

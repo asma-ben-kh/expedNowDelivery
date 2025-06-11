@@ -50,7 +50,7 @@ public class User {
   @OneToMany(mappedBy = "user")
   private List<Notifications> notifications;
 
-  @OneToOne(mappedBy = "user")
+  @OneToOne(mappedBy = "livreur")
   private Vehicule vehicule;
 
   @OneToMany(mappedBy = "Livreur")

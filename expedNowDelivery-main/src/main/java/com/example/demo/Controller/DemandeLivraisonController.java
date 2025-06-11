@@ -1,15 +1,18 @@
 package com.example.demo.Controller;
 import com.example.demo.ServiceApplicatif.DemandeLivraisonServiceApp;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
 import java.io.FileNotFoundException;
 import java.net.http.HttpRequest;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -82,9 +85,32 @@ public class DemandeLivraisonController {
     }
 
     
+   @GetMapping("/{demandeId}")
+   public ResponseEntity<?> getById(@PathVariable Long demandeId)
+   {
+         try
+         {
+        DemandeLivraisonDTO demande= demandeLivraisonServiceApp.getById(demandeId);
+        return ResponseEntity.ok(demande);
+        
+         }catch (RuntimeException e)
+         {
+         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 
-
+         }
       
+   }
 
+   @GetMapping("/{userId}")
+   public ResponseEntity<?> getByUserId(@PathVariable Long userId)
+   {
+    try{
+        List<DemandeLivraisonDTO> demandes=demandeLivraisonServiceApp.getDemandeByUserId(userId);
+        return ResponseEntity.ok(demandes);
+    }catch (RuntimeException e)
+    {
+        return ResponseEntity.status(HttpStatus.N)
+    }
+   }
 
 }

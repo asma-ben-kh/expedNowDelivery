@@ -58,5 +58,20 @@ public DemandeLivraison(DemandeLivraisonStatus status,double latitude, double lo
     this.longitude=longitude;
 }
 
+public DemandeLivraison orElseThrow(Object object) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
+}
+
+public DemandeLivraison orElseThrow(Object object) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
+}
+
+public DemandeLivraison orElseThrow(Object object) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
+}
+
 
 }

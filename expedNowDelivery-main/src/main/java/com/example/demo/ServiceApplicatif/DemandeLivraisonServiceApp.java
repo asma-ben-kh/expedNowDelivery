@@ -1,5 +1,6 @@
 package com.example.demo.ServiceApplicatif;
 
+
 import com.example.demo.Mapper.DemandeLivraisonMapper;
 import com.example.demo.Mapper.LivraisonMapper;
 import com.example.demo.ModelDomain.DemandeLivraison;
@@ -10,6 +11,8 @@ import com.example.demo.ModelDTO.LivraisonDTO;
 import com.example.demo.ModelDTO.UserDTO;
 import com.example.demo.Mapper.UserMapper;
 import com.example.demo.ModelDomain.User;
+import java.util.List;
+
 public class DemandeLivraisonServiceApp {
 
     private final DemandeLivraisonServiceMetier demandeLivraisonServiceMetier;
@@ -52,8 +55,22 @@ public class DemandeLivraisonServiceApp {
               
             }
     
-    
+    public DemandeLivraisonDTO getById(Long id){
 
+        DemandeLivraison demande= demandeLivraisonServiceMetier.getById(id);
+        return  demandeLivraisonMapper.toDto(demande);
+    }
+
+
+
+    public List<DemandeLivraisonDTO> getDemandeByUserId (Long userId){
+
+        List<DemandeLivraison> demandes= demandeLivraisonServiceMetier.getByUserId(userId);
+        return demandeLivraisonMapper.toDtoList(demandes);
+         
+    }
+
+    
 
 }
 

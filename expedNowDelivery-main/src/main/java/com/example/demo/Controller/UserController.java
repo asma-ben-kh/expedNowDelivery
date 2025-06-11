@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 
@@ -133,4 +134,22 @@ public ResponseEntity<UserDTO> activateUser(@PathVariable Long userId){
 
     return ResponseEntity.ok(activated);
 }
+
+@PutMapping("/{userId}/update")
+public ResponseEntity<UserDTO> updateUser(
+    
+      @PathVariable Long userId,
+      @RequestParam UserDTO userUpdated
+)
+
+{
+    UserDTO updated = userServiceApplicatif.updateUser(userId, userUpdated) ;
+    return ResponseEntity.ok(updated);
+      
 }
+
+
+}
+
+
+

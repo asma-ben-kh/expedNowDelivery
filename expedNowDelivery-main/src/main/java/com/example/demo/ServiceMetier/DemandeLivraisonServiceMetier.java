@@ -1,5 +1,8 @@
 package com.example.demo.ServiceMetier;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.example.demo.ModelDomain.DemandeLivraison;
 import com.example.demo.ModelDomain.DemandeLivraisonStatus;
 import com.example.demo.ModelDomain.Livraison;
@@ -13,4 +16,7 @@ public interface DemandeLivraisonServiceMetier {
  DemandeLivraison updateDemande(Long id, DemandeLivraison updatedDemande);
  void annulerDemandeParClient(Long demandeId, Long  userId ); 
  void deleteDemande(Long id);
+ DemandeLivraison getById(Long id);
+ List<DemandeLivraison> getByUserId(Long userId);
+ DemandeLivraison getAllDemandeLivraison();
 }

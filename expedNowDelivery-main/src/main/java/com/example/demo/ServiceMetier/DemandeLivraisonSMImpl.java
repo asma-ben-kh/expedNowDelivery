@@ -12,12 +12,16 @@ import com.example.demo.repository.ColisRepository;
 import com.example.demo.repository.DemandeLivraisonRepository;
 import com.example.demo.repository.LivraisonRepository;
 import com.example.demo.repository.UserRepository;
+
+import jakarta.persistence.EntityNotFoundException;
+
+
 import com.example.demo.ModelDomain.User;
 import com.example.demo.ModelDomain.UserRole;
 import com.example.demo.ServiceMetier.ColisServiceMetier;
 import com.example.demo.ServiceMetier.LivraisonServiceMetier;
 import java.util.List;
-
+import java.util.Optional;
 import java.util.Date;
 import java.util.Set;
 
@@ -125,6 +129,27 @@ public class DemandeLivraisonSMImpl implements DemandeLivraisonServiceMetier{
                 throw new RuntimeException("demande non trouve");
               }
               demandeLivraisonRepository.deleteById(id);
+              
+            }
+
+            @Override
+            public DemandeLivraison getById(Long id) {
+
+               return  demandeLivraisonRepository.findById(id)
+                                                 .orElseThrow(() -> new EntityNotFoundException("Demande de livraison non trouvée avec id : " + id));
+
+              }
+
+          @Override
+         public List<DemandeLivraison> getByUserId(Long userId) {
+
+              return demandeLivraisonRepository.findByUserId(userId)
+                                               .orElseThrow(() -> new EntityNotFoundException("Demande de livraison non trouvée liée à l'utilisateur : " + userId));
+}
+
+
+            @Override
+            public DemandeLivraison getAllDemandeLivraison() {
               
             }
 

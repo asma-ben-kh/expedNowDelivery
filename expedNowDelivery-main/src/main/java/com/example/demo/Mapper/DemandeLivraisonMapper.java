@@ -1,6 +1,8 @@
 
 package com.example.demo.Mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -22,6 +24,8 @@ public interface DemandeLivraisonMapper {
     @Mapping(source="client.phoneNumber" , target = "phoneNumber")
     DemandeLivraisonDTO toDto(DemandeLivraison entity);
     DemandeLivraison toEntity (DemandeLivraisonDTO dto);
+    List<DemandeLivraisonDTO> toDtoList(List<DemandeLivraison> demandes);
+
 
    
 }
