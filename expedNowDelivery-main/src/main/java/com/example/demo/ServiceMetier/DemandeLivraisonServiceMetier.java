@@ -18,5 +18,5 @@ public interface DemandeLivraisonServiceMetier {
  void deleteDemande(Long id);
  DemandeLivraison getById(Long id);
  List<DemandeLivraison> getByUserId(Long userId);
- DemandeLivraison getAllDemandeLivraison();
+ List<DemandeLivraison> getAllDemandeLivraison();
 }

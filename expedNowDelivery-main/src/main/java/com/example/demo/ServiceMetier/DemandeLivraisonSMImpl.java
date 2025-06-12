@@ -20,6 +20,9 @@ import com.example.demo.ModelDomain.User;
 import com.example.demo.ModelDomain.UserRole;
 import com.example.demo.ServiceMetier.ColisServiceMetier;
 import com.example.demo.ServiceMetier.LivraisonServiceMetier;
+import com.example.demo.exception.DemandeNotFound;
+import com.example.demo.exception.EmptyDemandeListException;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Date;
@@ -126,7 +129,7 @@ public class DemandeLivraisonSMImpl implements DemandeLivraisonServiceMetier{
             public void deleteDemande(Long id){
 
               if (!demandeLivraisonRepository.existsById(id)){
-                throw new RuntimeException("demande non trouve");
+                throw new DemandeNotFound("demande non trouve");
               }
               demandeLivraisonRepository.deleteById(id);
               
@@ -141,17 +144,29 @@ public class DemandeLivraisonSMImpl implements DemandeLivraisonServiceMetier{
               }
 
           @Override
-         public List<DemandeLivraison> getByUserId(Long userId) {
+          public List<DemandeLivraison> getByUserId(Long userId) {
 
-              return demandeLivraisonRepository.findByUserId(userId)
-                                               .orElseThrow(() -> new EntityNotFoundException("Demande de livraison non trouvée liée à l'utilisateur : " + userId));
+            List<DemandeLivraison> demandes= demandeLivraisonRepository.findByUserId(userId);
+                 
+            if(demandes == null || demandes.isEmpty()){
+
+              throw new DemandeNotFound("aucune demande lie a cet utlisateur");
+             }
+             return demandes;
 }
-
+  
 
             @Override
-            public DemandeLivraison getAllDemandeLivraison() {
-              
-            }
+            public List<DemandeLivraison> getAllDemandeLivraison() {
+               
+              List<DemandeLivraison> demandes = demandeLivraisonRepository.findAll();
+               
+              if (demandes == null || demandes.isEmpty()) {
+
+                throw new EmptyDemandeListException("liste des demandes est vide");
+              }
+              return demandes;
+              }
 
           
        

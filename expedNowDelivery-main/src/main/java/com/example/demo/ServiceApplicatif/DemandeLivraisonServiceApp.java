@@ -70,7 +70,11 @@ public class DemandeLivraisonServiceApp {
          
     }
 
-    
+    public List<DemandeLivraisonDTO> getAllDemandes() {
+
+        List<DemandeLivraison> demandes = demandeLivraisonServiceMetier.getAllDemandeLivraison();
+          return demandeLivraisonMapper.toDtoList(demandes);
+    }
 
 }
 

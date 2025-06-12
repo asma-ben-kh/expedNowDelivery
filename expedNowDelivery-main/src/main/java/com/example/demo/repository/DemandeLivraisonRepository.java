@@ -11,8 +11,8 @@ import com.example.demo.ModelDomain.DemandeLivraison;
 
 @Repository
 public interface DemandeLivraisonRepository  extends JpaRepository<DemandeLivraison, Long>{
-    Optional<List<DemandeLivraison>> findByUserId(Long userId);
+    List<DemandeLivraison>findByUserId(Long userId);
     Optional<DemandeLivraison> findById(Long demandeId);
-    List<DemandeLivraison>
+    List<DemandeLivraison> findAll();
 
 }

@@ -72,32 +72,21 @@ public class DemandeLivraisonController {
 
 
     @DeleteMapping("/{demandeId}")
-    public ResponseEntity<String> deleteDemande(@PathVariable Long demandeId)
+    public ResponseEntity<?> deleteDemande(@PathVariable Long demandeId)
     {
-        try{
             demandeLivraisonServiceApp.deleteDemande(demandeId);
-            return ResponseEntity.ok("demande supprime avec succes");
-
-        } catch (RuntimeException e) {
-
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+            return ResponseEntity.noContent().build();  
     }
 
     
    @GetMapping("/{demandeId}")
    public ResponseEntity<?> getById(@PathVariable Long demandeId)
    {
-         try
-         {
+        
         DemandeLivraisonDTO demande= demandeLivraisonServiceApp.getById(demandeId);
         return ResponseEntity.ok(demande);
         
-         }catch (RuntimeException e)
-         {
-         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-
-         }
+       
       
    }
 
@@ -107,12 +96,19 @@ public class DemandeLivraisonController {
     
         List<DemandeLivraisonDTO> demandes=demandeLivraisonServiceApp.getDemandeByUserId(userId);
       
-        if (demandes.isEmpty()){
             
-            return ResponseEntity.noContent().build();
-        }
+            return ResponseEntity.ok(demandes);
+        
     
-        return ResponseEntity.ok(demandes);
+   }
+
+
+   @GetMapping("/getAllDemande")
+   public ResponseEntity<List<DemandeLivraisonDTO>> getAllDemande()
+   {
+    List<DemandeLivraisonDTO> demandes = demandeLivraisonServiceApp.getAllDemandes();
+    return ResponseEntity.ok(demandes);
+    
    }
 
 }
