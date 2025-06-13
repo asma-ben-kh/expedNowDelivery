@@ -30,4 +30,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleDemandeNotFound(DemandeNotFound ex){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
+
+
+    @ExceptionHandler(NotSaved.class)
+    public ResponseEntity<String> handleNotSaved(NotSaved ex){
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(NotDeleted.class)
+    public ResponseEntity<String> handleNotDelated(NotDeleted ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 }

@@ -10,10 +10,14 @@ import jakarta.persistence.JoinColumn;
 import java.util.List;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import lombok.Getter;
+import lombok.Setter;
 import jakarta.persistence.CascadeType;
 import com.example.demo.ModelDomain.User;
 
 @Entity
+@Getter
+@Setter
 public class Vehicule {
 
     @Id

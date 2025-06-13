@@ -1,30 +1,65 @@
 package com.example.demo.ServiceMetier;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
 import com.example.demo.ModelDomain.Vehicule;
 import com.example.demo.ServiceMetier.VehiculeServiceMetier;
+import com.example.demo.exception.NotDeleted;
+import com.example.demo.exception.NotSaved;
+import com.example.demo.repository.VehiculeRepository;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Service
+@Getter
+@Setter
 
 public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
 
+
+
+    private final VehiculeRepository vehiculeRepository;
+
+
+    public VehiculeServiceMetierImp(VehiculeRepository vehiculeRepository ){
+        this.vehiculeRepository = vehiculeRepository;
+    }
+
+
     @Override
     public void assignerVehicule(Long id, long livreurId) {
-        // TODO Auto-generated method stub
+        
         
     }
 
     @Override
     public Void deleteVehicule(Long id) {
-        // TODO Auto-generated method stub
-        return null;
+
+      Optional<Vehicule> optionalVehicule = vehiculeRepository.findById(id);
+      //le orelsethrow retoune l objet ou declanche une exception
+
+       Vehicule vehicule = optionalVehicule.orElseThrow(() -> new NotDeleted("Véhicule avec id " + id + " introuvable"));
+       
+
+            vehiculeRepository.delete(vehicule);
+        }
     }
 
     @Override
     public Vehicule saveVoiture(Vehicule vehicule) {
-        // TODO Auto-generated method stub
-        return null;
+
+        Vehicule vehiculesaved = vehiculeRepository.save(vehicule);
+        if(vehiculesaved == null || vehiculesaved.getId() == null){
+            throw new NotSaved("Le véhicule n'a pas pu être enregistré.");
+        }
+         return vehiculesaved;
+
     }
 
     @Override
     public Vehicule updateVehicule(Vehicule vehicule) {
-        // TODO Auto-generated method stub
         return null;
     }
 
