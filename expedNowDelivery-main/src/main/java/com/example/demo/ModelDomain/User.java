@@ -50,7 +50,9 @@ public class User {
   @OneToMany(mappedBy = "user")
   private List<Notifications> notifications;
 
+  //la relation est gérée ou mappée par l'attribut livreur dans l'entité Vehicule
   @OneToOne(mappedBy = "livreur")
+  //Vehicule est la proprietaire
   private Vehicule vehicule;
 
   @OneToMany(mappedBy = "Livreur")

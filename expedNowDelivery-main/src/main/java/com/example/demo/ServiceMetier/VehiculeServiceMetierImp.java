@@ -8,6 +8,7 @@ import com.example.demo.ServiceMetier.VehiculeServiceMetier;
 import com.example.demo.exception.NotDeleted;
 import com.example.demo.exception.NotSaved;
 import com.example.demo.repository.VehiculeRepository;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,7 +30,9 @@ public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
 
 
     @Override
-    public void assignerVehicule(Long id, long livreurId) {
+    public void assignerVehicule(Long VehiculeId, long livreurId) {
+        List<Vehicule> = vehiculeRepository.findAllByDisponibleTrue();
+
         
         
     }

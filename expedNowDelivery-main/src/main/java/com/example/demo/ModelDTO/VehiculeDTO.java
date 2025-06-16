@@ -12,13 +12,15 @@ public class VehiculeDTO {
     private String matricule;
     private Long numSerie;
     private Long livreur; // Pour éviter de retourner tout l'objet User
+    private boolean disponible;
 
     // Constructeur personnalisé
-    public VehiculeDTO(Long id, String matricule, Long numSerie, Long livreur) {
+    public VehiculeDTO(Long id, String matricule, Long numSerie, Long livreur, boolean disponible) {
         this.id = id;
         this.matricule = matricule;
         this.numSerie = numSerie;
         this.livreur = livreur;
+        this.disponible = disponible;
     }
 }
 
