@@ -27,9 +27,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)  // Auto-increment id
     private Long id;
 
-   
-
-
     @Column(nullable = false)
     private String password;
 

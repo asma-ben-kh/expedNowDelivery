@@ -7,5 +7,7 @@ public interface VehiculeServiceMetier {
     public void deleteVehicule(Long id);
     public Vehicule updateVehicule(Long vehiculeId, Vehicule vehiculeUpdated);
     public void assignerVehicule(Long id, long livreurId);
+    public Vehicule getById(Long id);
+    public Vehicule getAll();
 
 }

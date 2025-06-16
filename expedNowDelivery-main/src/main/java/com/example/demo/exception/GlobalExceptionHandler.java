@@ -43,8 +43,8 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(VehiculeNotFound.class)
-    public ResponseEntity<String> handleNotFoundVehicule(VehiculeNotFound ex){
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<String> handleNotFoundVehicule(NotFoundException ex){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 }

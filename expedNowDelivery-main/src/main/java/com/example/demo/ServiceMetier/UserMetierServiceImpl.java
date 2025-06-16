@@ -71,9 +71,8 @@ public User saveClientPro(User user) {
     }
 
 public User getUserById(Long id) {
-    return userRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("user avec ID " + id + " non trouvé"));
-
+return userRepository.findById(id)
+.orElseThrow(() -> new RuntimeException("user avec ID " + id + " non trouvé"));
 }
 
 public List<User> getAllUserByRole(UserRole role){
@@ -84,7 +83,7 @@ public List<User> getAllUserByRole(UserRole role){
 
 public void desactiveUser(Long id){
 
-    Optional <User> userOpt = userRepository.findById(id);
+    Optional<User> userOpt = userRepository.findById(id);
     if (userOpt.isPresent()){
         User user =  userOpt.get();
         user.setActive(false); 

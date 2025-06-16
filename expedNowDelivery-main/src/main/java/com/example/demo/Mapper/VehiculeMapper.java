@@ -9,6 +9,7 @@ import com.example.demo.ModelDomain.Vehicule;
 import java.util.List;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
@@ -20,4 +21,6 @@ public interface VehiculeMapper {
     VehiculeDTO toDto(Vehicule vehicule);
 
     Vehicule toEntity(VehiculeDTO vehiculeDTO);
+
+    void updateVehiculeFromDTO(VehiculeDTO vehiculeDTO,@MappingTarget VehiculeDTO vehiculeDTOUpdated );
 }

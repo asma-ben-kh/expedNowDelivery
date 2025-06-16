@@ -4,6 +4,7 @@ import com.example.demo.ModelDomain.UserRole;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -21,7 +22,10 @@ import lombok.Data;
     
     private String phoneNumber;
     private UserRole role;
-    private boolean disponible;
+
+     @NotNull(message = "disponible est obligatoire.")
+    private Boolean disponible;
+    
     private boolean active;
     private double latitude;
     private double longitude;

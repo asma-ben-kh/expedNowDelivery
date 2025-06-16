@@ -7,6 +7,8 @@ import com.example.demo.ModelDomain.Vehicule;
 import com.example.demo.ServiceMetier.VehiculeServiceMetier;
 import com.example.demo.exception.NotDeleted;
 import com.example.demo.exception.NotSaved;
+import com.example.demo.exception.NotFound;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.repository.VehiculeRepository;
 import java.util.List;
 
@@ -14,12 +16,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Service
-@Getter
-@Setter
-
 public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
-
-
 
     private final VehiculeRepository vehiculeRepository;
 
@@ -32,8 +29,6 @@ public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
     @Override
     public void assignerVehicule(Long VehiculeId, long livreurId) {
         List<Vehicule> = vehiculeRepository.findAllByDisponibleTrue();
-
-        
         
     }
 
@@ -43,7 +38,7 @@ public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
       Optional<Vehicule> optionalVehicule = vehiculeRepository.findById(id);
       //le orelsethrow retoune l objet ou declanche une exception
 
-       Vehicule vehicule = optionalVehicule.orElseThrow(() -> new NotDeleted("Véhicule avec id " + id + " introuvable"));
+       Vehicule vehicule = optionalVehicule.orElseThrow(() -> new NotFoundException("Véhicule avec id " + id + " introuvable"));
        
 
             vehiculeRepository.delete(vehicule);
@@ -63,7 +58,7 @@ public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
 
     @Override
     public Vehicule updateVehicule(Long vehiculeId, Vehicule vehiculeUpdated) {
-        Vehicule vehiculeExisting = vehiculeRepository.findById(vehiculeId).orElseThrow(() -> new VehiculeNotFound("vehicule " + vehiculeId + "introuvable"));
+        Vehicule vehiculeExisting = vehiculeRepository.findById(vehiculeId).orElseThrow(() -> new NotFoundException("vehicule " + vehiculeId + "introuvable"));
 
         vehiculeExisting.setMatricule(vehiculeUpdated.getMatricule());
         vehiculeExisting.setNumSerie(vehiculeUpdated.getNumSerie());
@@ -72,6 +67,19 @@ public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
 
         return vehiculeRepository.save(vehiculeExisting);
          
+    }
+
+
+    @Override
+    public Vehicule getAll() {
+        return vehiculeRepository.findAll();
+        
+    }
+
+
+    @Override
+    public Vehicule getById(Long id) {
+        return  vehiculeRepository.findById(id).orElseThrow(() -> new NotFoundException("Véhicule avec l'id " + id + " introuvable"));
     }
 
 
