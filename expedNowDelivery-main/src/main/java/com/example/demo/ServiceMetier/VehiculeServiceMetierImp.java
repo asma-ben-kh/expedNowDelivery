@@ -35,7 +35,7 @@ public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
     }
 
     @Override
-    public Void deleteVehicule(Long id) {
+    public void deleteVehicule(Long id) {
 
       Optional<Vehicule> optionalVehicule = vehiculeRepository.findById(id);
       //le orelsethrow retoune l objet ou declanche une exception
@@ -45,7 +45,7 @@ public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
 
             vehiculeRepository.delete(vehicule);
         }
-    }
+    
 
     @Override
     public Vehicule saveVoiture(Vehicule vehicule) {
@@ -59,8 +59,16 @@ public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
     }
 
     @Override
-    public Vehicule updateVehicule(Vehicule vehicule) {
-        return null;
+    public Vehicule updateVehicule(Long vehiculeId, Vehicule vehiculeUpdated) {
+        Vehicule vehiculeExisting = vehiculeRepository.findById(vehiculeId).orElseThrow(() -> new VehiculeNotFound("vehicule " + vehiculeId + "introuvable"));
+
+        vehiculeExisting.setMatricule(vehiculeUpdated.getMatricule());
+        vehiculeExisting.setNumSerie(vehiculeUpdated.getNumSerie());
+        vehiculeExisting.setLivreur(vehiculeUpdated.getLivreur());
+
+
+        return vehiculeRepository.save(vehiculeExisting);
+         
     }
 
 

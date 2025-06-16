@@ -41,4 +41,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleNotDelated(NotDeleted ex){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
+
+
+    @ExceptionHandler(VehiculeNotFound.class)
+    public ResponseEntity<String> handleNotFoundVehicule(VehiculeNotFound ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 }
