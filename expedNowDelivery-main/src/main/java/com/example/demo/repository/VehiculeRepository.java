@@ -12,10 +12,9 @@ import com.example.demo.ModelDomain.Vehicule;
 public interface VehiculeRepository extends JpaRepository<Vehicule, Long>{
     
 
-    List<Vehicule> findAllByDisponibleTrue();
-    Optional<Vehicule> findById(Long id);
-    List<Vehicule> findAll();
+    Optional<Vehicule> findFirstByDisponibleTrue();
     boolean existsByMatricule(String matricule);
     boolean existsByNumSerie(String numSerie);
+    
 
 }

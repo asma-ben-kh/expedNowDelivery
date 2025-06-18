@@ -8,6 +8,7 @@ public interface VehiculeServiceMetier {
     public Vehicule saveVoiture(Vehicule vehicule);
     public void deleteVehicule(Long id);
     public Vehicule updateVehicule(Long vehiculeId, Vehicule vehiculeUpdated);
+    public Vehicule SearchVehiculeDsiponible();
     public void assignerVehicule(Long id, long livreurId);
     public Vehicule getById(Long id);
     public List<Vehicule> getAll();

@@ -27,11 +27,7 @@ public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
     }
 
 
-    @Override
-    public void assignerVehicule(Long VehiculeId, long livreurId) {
-        List<Vehicule> = vehiculeRepository.findAllByDisponibleTrue();
-        
-    }
+   
 
     @Override
     public void deleteVehicule(Long id) {
@@ -98,6 +94,9 @@ public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
     }
 
 
-    
+    @Override
+    public Vehicule SearchVehiculeDsiponible(){
+    return vehiculeRepository.findFirstByDisponibleTrue().orElseThrow(() -> new NotFoundException("aucune vehicule disponible"));
 
+    }
 }
