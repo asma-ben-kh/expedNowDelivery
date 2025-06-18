@@ -1,7 +1,8 @@
-package com.example.demo.ServiceMetier;
+package com.example.demo.ServiceMetier.impl;
 
 import com.example.demo.ModelDomain.Colis;
 import com.example.demo.repository.ColisRepository;
+import com.example.demo.ServiceMetier.*;
 
 public class ColisServiceMetierImp implements ColisServiceMetier {
 

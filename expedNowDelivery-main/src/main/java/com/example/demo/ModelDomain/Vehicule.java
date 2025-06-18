@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import java.util.List;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,11 +29,16 @@ public class Vehicule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Long id;
 
-     @Column(nullable = false, unique = true)
+     @NotBlank
+     @Column(unique = true)
      private String matricule;
+     
 
-     @Column(nullable = false)
-     private Long numSerie;
+     @NotBlank
+     @Column(unique = true)
+     private String numSerie;
+
+
      
      @Column(nullable = false)
      private boolean disponible=true; 
@@ -41,12 +47,12 @@ public class Vehicule {
      @JoinColumn(name = "livreur_id")
      private User livreur;
 
-     public Vehicule(Long id, String matricule, Long numSerie, User livreur, boolean disponible) {
+     public Vehicule(Long id, String matricule,String numSerie, User livreur, boolean disponible) {
     this.id = id;
     this.matricule = matricule;
-    this.numSerie = numSerie;
     this.livreur = livreur;
     this.disponible = disponible;
+    this.numSerie = numSerie;
 }
 
 }

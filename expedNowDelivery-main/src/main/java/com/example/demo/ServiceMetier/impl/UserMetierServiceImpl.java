@@ -1,4 +1,4 @@
-package com.example.demo.ServiceMetier;
+package com.example.demo.ServiceMetier.impl;
 
 
 import java.util.Comparator;
@@ -16,6 +16,7 @@ import com.example.demo.ModelDomain.UserRole;
 import com.example.demo.repository.UserRepository;
 
 import jakarta.persistence.EntityNotFoundException;
+import com.example.demo.ServiceMetier.*;
 
 
 import lombok.Getter;

@@ -1,4 +1,6 @@
 package com.example.demo.ServiceMetier;
+import java.util.List;
+
 import com.example.demo.ModelDomain.Vehicule;
 
 public interface VehiculeServiceMetier {
@@ -8,6 +10,6 @@ public interface VehiculeServiceMetier {
     public Vehicule updateVehicule(Long vehiculeId, Vehicule vehiculeUpdated);
     public void assignerVehicule(Long id, long livreurId);
     public Vehicule getById(Long id);
-    public Vehicule getAll();
+    public List<Vehicule> getAll();
 
 }

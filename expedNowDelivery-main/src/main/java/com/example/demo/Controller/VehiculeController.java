@@ -28,8 +28,8 @@ public class VehiculeController {
    @PostMapping("/saveVehicule")
    public ResponseEntity<VehiculeDTO> saveVehicule(@RequestBody VehiculeDTO vehiculeDTO){
 
-    VehiculeDTO saved = vehiculeServiceApp.saveVoiture(vehiculeDTO);
-    return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+        VehiculeDTO saved = vehiculeServiceApp.saveVoiture(vehiculeDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
 
    }
 
@@ -44,7 +44,27 @@ public class VehiculeController {
    public ResponseEntity<VehiculeDTO> updateVehicule(
     @PathVariable Long id,
     @RequestParam  VehiculeDTO vehiculeDTO)
+  
     {
-   
+      VehiculeDTO updatedvehicule  = vehiculeServiceApp.updateVehicule(id, vehiculeDTO);
+       return ResponseEntity.status(HttpStatus.OK).body(updatedvehicule);
+   }
+
+
+   @GetMapping("/{id}")
+   public ResponseEntity<VehiculeDTO> getById(@PathVariable Long id)
+   {
+
+    VehiculeDTO vehicule = vehiculeServiceApp.getById(id);
+    return ResponseEntity.status(HttpStatus.OK).body(vehicule);
+   }
+
+
+   @GetMapping("/getAll")
+   public ResponseEntity<List<VehiculeDTO>> getAll(){
+
+    List<VehiculeDTO> vehicule = vehiculeServiceApp.getAll();
+    return ResponseEntity.status(HttpStatus.OK).body(vehicule);
+    
    }
 }

@@ -1,4 +1,6 @@
 package com.example.demo.ServiceApplicatif;
+import java.util.List;
+
 import org.mapstruct.MappingTarget;
 
 import com.example.demo.Mapper.VehiculeMapper;
@@ -35,10 +37,25 @@ public class VehiculeServiceApp {
 
     public VehiculeDTO updateVehicule(Long vehiculeId,  VehiculeDTO vehiculeUpdatedDTO){
 
-        //recupere l entite existante 
-        Vehicule existing =
         Vehicule vehicule = vehiculeMapper.toEntity(vehiculeUpdatedDTO);
         Vehicule vehiculeUpdated = vehiculeServiceMetier.updateVehicule(vehiculeId, vehicule);
         return vehiculeMapper.toDto(vehiculeUpdated);
+    }
+
+    public VehiculeDTO getById(Long id){
+
+        Vehicule vehicule = vehiculeServiceMetier.getById(id);
+        return vehiculeMapper.toDto(vehicule);
+        
+
+    }
+
+
+    public List<VehiculeDTO> getAll() {
+
+        List<Vehicule> vehicules = vehiculeServiceMetier.getAll();
+        return vehiculeMapper.toDtoList(vehicules);
+
+
     }
 }

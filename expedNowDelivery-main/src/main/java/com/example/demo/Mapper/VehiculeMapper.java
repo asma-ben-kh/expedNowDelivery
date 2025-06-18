@@ -20,6 +20,8 @@ public interface VehiculeMapper {
 
     VehiculeDTO toDto(Vehicule vehicule);
 
+    List<VehiculeDTO> toDtoList(List<Vehicule> vehicules);
+
     Vehicule toEntity(VehiculeDTO vehiculeDTO);
 
     void updateVehiculeFromDTO(VehiculeDTO vehiculeDTO,@MappingTarget VehiculeDTO vehiculeDTOUpdated );

@@ -1,15 +1,16 @@
-package com.example.demo.ServiceMetier;
+package com.example.demo.ServiceMetier.impl;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import com.example.demo.ServiceMetier.*;
 
 import com.example.demo.ModelDomain.Vehicule;
 import com.example.demo.ServiceMetier.VehiculeServiceMetier;
-import com.example.demo.exception.NotDeleted;
-import com.example.demo.exception.NotSaved;
-import com.example.demo.exception.NotFound;
 import com.example.demo.exception.NotFoundException;
+import com.example.demo.exception.VehiculeAlreadyExistException;
 import com.example.demo.repository.VehiculeRepository;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
@@ -48,12 +49,24 @@ public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
     @Override
     public Vehicule saveVoiture(Vehicule vehicule) {
 
-        Vehicule vehiculesaved = vehiculeRepository.save(vehicule);
-        if(vehiculesaved == null || vehiculesaved.getId() == null){
-            throw new NotSaved("Le véhicule n'a pas pu être enregistré.");
-        }
-         return vehiculesaved;
+        List<String> conflits = new ArrayList<>();
 
+        if(vehiculeRepository.existsByMatricule(vehicule.getMatricule())){
+
+            conflits.add("matricule");
+        }
+
+      if(vehiculeRepository.existsByNumSerie(vehicule.getNumSerie())){
+
+           conflits.add("NumSerie");
+        }
+
+        if(!conflits.isEmpty()){
+
+            throw new VehiculeAlreadyExistException(conflits);
+        }
+
+        return vehiculeRepository.save(vehicule);
     }
 
     @Override
@@ -71,8 +84,10 @@ public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
 
 
     @Override
-    public Vehicule getAll() {
-        return vehiculeRepository.findAll();
+    public List<Vehicule> getAll() {
+      
+        List<Vehicule> ListVec = vehiculeRepository.findAll();
+        return (ListVec);
         
     }
 

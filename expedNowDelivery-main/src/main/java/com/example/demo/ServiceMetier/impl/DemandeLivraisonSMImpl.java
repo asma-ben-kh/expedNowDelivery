@@ -1,4 +1,4 @@
-package com.example.demo.ServiceMetier;
+package com.example.demo.ServiceMetier.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,14 +14,14 @@ import com.example.demo.repository.LivraisonRepository;
 import com.example.demo.repository.UserRepository;
 
 import jakarta.persistence.EntityNotFoundException;
+import com.example.demo.ServiceMetier.*;
 
 
 import com.example.demo.ModelDomain.User;
 import com.example.demo.ModelDomain.UserRole;
 import com.example.demo.ServiceMetier.ColisServiceMetier;
 import com.example.demo.ServiceMetier.LivraisonServiceMetier;
-import com.example.demo.exception.DemandeNotFound;
-import com.example.demo.exception.EmptyDemandeListException;
+import com.example.demo.exception.NotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -129,7 +129,7 @@ public class DemandeLivraisonSMImpl implements DemandeLivraisonServiceMetier{
             public void deleteDemande(Long id){
 
               if (!demandeLivraisonRepository.existsById(id)){
-                throw new DemandeNotFound("demande non trouve");
+                throw new NotFoundException("demande non trouve");
               }
               demandeLivraisonRepository.deleteById(id);
               
@@ -150,7 +150,7 @@ public class DemandeLivraisonSMImpl implements DemandeLivraisonServiceMetier{
                  
             if(demandes == null || demandes.isEmpty()){
 
-              throw new DemandeNotFound("aucune demande lie a cet utlisateur");
+              throw new NotFoundException("aucune demande lie a cet utlisateur");
              }
              return demandes;
 }
@@ -159,13 +159,9 @@ public class DemandeLivraisonSMImpl implements DemandeLivraisonServiceMetier{
             @Override
             public List<DemandeLivraison> getAllDemandeLivraison() {
                
-              List<DemandeLivraison> demandes = demandeLivraisonRepository.findAll();
+              return  demandeLivraisonRepository.findAll();
                
-              if (demandes == null || demandes.isEmpty()) {
-
-                throw new EmptyDemandeListException("liste des demandes est vide");
-              }
-              return demandes;
+             
               }
 
           
