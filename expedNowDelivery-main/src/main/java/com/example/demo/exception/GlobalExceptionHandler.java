@@ -6,16 +6,12 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.example.demo.exception.EmptyDemandeListException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
 
-    @ExceptionHandler(NotSaved.class)
-    public ResponseEntity<String> handleNotSaved(NotSaved ex){
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(ex.getMessage());
-    }
+  
 
  
 
@@ -27,5 +23,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(VehiculeAlreadyExistException.class)
     public  ResponseEntity<List<String>> handleVehiculeAlreadyExistException(VehiculeAlreadyExistException ex){
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getFields());
+    }
+
+
+    @ExceptionHandler(LivreurDejaAssignerVehiculeException.class)
+    public ResponseEntity<String> handleLivreurDejaAssigmer(LivreurDejaAssignerVehiculeException ex){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 }

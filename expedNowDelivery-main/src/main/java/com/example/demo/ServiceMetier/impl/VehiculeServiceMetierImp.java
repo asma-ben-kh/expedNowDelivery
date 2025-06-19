@@ -6,24 +6,34 @@ import com.example.demo.ServiceMetier.*;
 
 import com.example.demo.ModelDomain.Vehicule;
 import com.example.demo.ServiceMetier.VehiculeServiceMetier;
+import com.example.demo.exception.LivreurDejaAssignerVehiculeException;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.exception.VehiculeAlreadyExistException;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.repository.VehiculeRepository;
+import com.example.demo.ModelDomain.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
+import com.example.demo.ServiceMetier.UserMetierService;
 
 @Service
 public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
 
     private final VehiculeRepository vehiculeRepository;
+    private final UserMetierService userMetierService;
+    private final UserRepository userRepository;
 
 
-    public VehiculeServiceMetierImp(VehiculeRepository vehiculeRepository ){
+    public VehiculeServiceMetierImp(VehiculeRepository vehiculeRepository, UserMetierService userMetierService , UserRepository userRepository){
+      
         this.vehiculeRepository = vehiculeRepository;
+        this.userMetierService = userMetierService;
+        this.userRepository = userRepository;
+    
     }
 
 
@@ -90,13 +100,50 @@ public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
 
     @Override
     public Vehicule getById(Long id) {
+        
         return  vehiculeRepository.findById(id).orElseThrow(() -> new NotFoundException("Véhicule avec l'id " + id + " introuvable"));
     }
 
 
     @Override
-    public Vehicule SearchVehiculeDsiponible(){
-    return vehiculeRepository.findFirstByDisponibleTrue().orElseThrow(() -> new NotFoundException("aucune vehicule disponible"));
+    public Vehicule SearchFirstVehiculeDsiponible(){
+    
+        return vehiculeRepository.findFirstByDisponibleTrue().orElseThrow(() -> new NotFoundException("aucune vehicule disponible"));
 
     }
+
+     @Override
+     public List<Vehicule> SearchAllVehiculeDsiponible(){
+
+         return vehiculeRepository.findAllByDisponibleTrue();
+     }
+
+   
+   @Override
+    public void assignerVehicule(long livreurId){
+
+      //recuperer livreur
+      User livreur = userRepository.findById(livreurId).orElseThrow(() -> new NotFoundException("livreur introuvable"));
+
+      //verifie si le livreur a deja un vehicule
+      if (livreur.getVehicule() != null){
+
+           throw new LivreurDejaAssignerVehiculeException("vehcicule deja assigner a ce livreur");          
+      }
+
+      //chercher vehicule dispo
+     Vehicule vehiculeDispo = SearchFirstVehiculeDsiponible();
+
+     //assigner c vehicule au livreur
+     livreur.setVehicule(vehiculeDispo);
+
+     //marquer voiture comme non dispo
+     vehiculeDispo.setDisponible(false);
+
+     //saving
+     userRepository.save(livreur);
+     vehiculeRepository.save(vehiculeDispo);
+    
+    }
+
 }

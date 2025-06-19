@@ -15,6 +15,7 @@ public interface VehiculeRepository extends JpaRepository<Vehicule, Long>{
     Optional<Vehicule> findFirstByDisponibleTrue();
     boolean existsByMatricule(String matricule);
     boolean existsByNumSerie(String numSerie);
+    List<Vehicule> findAllByDisponibleTrue();
     
 
 }
