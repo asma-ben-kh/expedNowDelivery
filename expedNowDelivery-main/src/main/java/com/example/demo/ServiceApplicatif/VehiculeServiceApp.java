@@ -60,15 +60,16 @@ public class VehiculeServiceApp {
     }
 
     public List<VehiculeDTO> getAllVehiculeDispo(){
+       
         List<Vehicule> vehicules = vehiculeServiceMetier.SearchAllVehiculeDsiponible();
         return vehiculeMapper.toDtoList(vehicules);
     }
 
 
       public VehiculeDTO assignerVehicule(long livreurId){
-        vehiculeServiceMetier.assignerVehicule(livreurId);
-
-
+       
+        Vehicule vehicule=   vehiculeServiceMetier.assignerVehicule(livreurId);
+        return vehiculeMapper.toDto(vehicule);
 
       }
 

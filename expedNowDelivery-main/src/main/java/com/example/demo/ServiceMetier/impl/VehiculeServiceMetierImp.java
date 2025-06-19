@@ -120,7 +120,7 @@ public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
 
    
    @Override
-    public void assignerVehicule(long livreurId){
+    public Vehicule assignerVehicule(long livreurId){
 
       //recuperer livreur
       User livreur = userRepository.findById(livreurId).orElseThrow(() -> new NotFoundException("livreur introuvable"));
@@ -143,7 +143,8 @@ public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
      //saving
      userRepository.save(livreur);
      vehiculeRepository.save(vehiculeDispo);
-    
+     
+    return vehiculeDispo;
     }
 
 }

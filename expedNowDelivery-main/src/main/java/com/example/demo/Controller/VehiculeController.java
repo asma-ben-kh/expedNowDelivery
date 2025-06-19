@@ -1,9 +1,12 @@
 package com.example.demo.Controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.ModelDTO.VehiculeDTO;
+import com.example.demo.ModelDomain.Vehicule;
 import com.example.demo.ServiceApplicatif.VehiculeServiceApp;
 
 @RestController
@@ -66,5 +70,20 @@ public class VehiculeController {
     List<VehiculeDTO> vehicule = vehiculeServiceApp.getAll();
     return ResponseEntity.status(HttpStatus.OK).body(vehicule);
     
+   }
+
+   @GetMapping("/getAllVehiDispo")
+   public ResponseEntity<List<VehiculeDTO>> getAllVehiDispo(){
+
+     List<VehiculeDTO> vehiculeDispo = vehiculeServiceApp.getAllVehiculeDispo();
+     return ResponseEntity.status(HttpStatus.OK).body(vehiculeDispo);
+
+   }
+
+   @PutMapping("/{livreurId}/assigner-vehicule")
+   public ResponseEntity<?> assignerVehiculeToLivreur(@PathVariable Long id){
+
+     vehiculeServiceApp.assignerVehicule(id);
+    return ResponseEntity.ok("Véhicule assigné avec succès");
    }
 }
