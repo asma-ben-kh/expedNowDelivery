@@ -12,6 +12,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 import com.example.demo.ModelDTO.SaveVehiculeRequestDTO;
+import com.example.demo.ModelDTO.UpdatevehiculeRequestDTO;
 
 @Mapper(componentModel = "spring")
 public interface VehiculeMapper {
@@ -23,6 +24,8 @@ public interface VehiculeMapper {
     List<VehiculeDTO> toDtoList(List<Vehicule> vehicules);
 
     Vehicule toEntity(VehiculeDTO vehiculeDTO);
+
+    Vehicule toEntity(UpdatevehiculeRequestDTO updatedVehiculeDTO);
     
     Vehicule toEntity(SaveVehiculeRequestDTO saveVehiculeRequestDTO);
 

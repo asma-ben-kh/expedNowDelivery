@@ -40,9 +40,9 @@ public class VehiculeController {
 
    }
 
-   @PutMapping("/{id}")
-   public ResponseEntity<VehiculeDTO> updateVehicule(@PathVariable Long id, @RequestBody UpdatevehiculeRequestDTO updatevehiculeRequestDTO ){
-      VehiculeDTO updatedvehicule  = vehiculeServiceApp.updateVehicule(id, updatevehiculeRequestDTO);
+   @PutMapping("/{vehiculeId}")
+   public ResponseEntity<VehiculeDTO> updateVehicule(@PathVariable Long vehiculeId, @RequestBody UpdatevehiculeRequestDTO updatevehiculeRequestDTO ){
+      VehiculeDTO updatedvehicule  = vehiculeServiceApp.updateVehicule(vehiculeId, updatevehiculeRequestDTO);
        return ResponseEntity.status(HttpStatus.OK).body(updatedvehicule);
    }
 
@@ -79,18 +79,11 @@ public class VehiculeController {
 
    }
 
-   @PutMapping("/assignment-auto/{livreurId}")
-    public ResponseEntity<?> assignerVehiculeToLivreurAuto(@PathVariable Long livreurId){
 
-     vehiculeServiceApp.assignerVehicule(livreurId);
-     return ResponseEntity.ok("Véhicule assigné avec succès");
+    @PutMapping("/{vehiculeId}/assignment/{livreurId}")
+    public ResponseEntity<?> assignerVehiculeToLivreur(@PathVariable Long vehiculeId,@PathVariable Long livreurId){
 
-   }
-
-    @PutMapping("/{id}/assignment/{livreurId}")
-    public ResponseEntity<?> assignerVehiculeToLivreur(@PathVariable Long id,@PathVariable Long livreurId){
-
-     vehiculeServiceApp.assignerVehicule(id);
+     vehiculeServiceApp.assignerVehicule(vehiculeId , livreurId);
      return ResponseEntity.ok("Véhicule assigné avec succès");
 
    }

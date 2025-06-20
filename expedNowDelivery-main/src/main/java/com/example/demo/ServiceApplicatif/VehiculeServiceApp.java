@@ -8,7 +8,7 @@ import com.example.demo.ModelDTO.VehiculeDTO;
 import com.example.demo.ModelDomain.Vehicule;
 import com.example.demo.ServiceMetier.VehiculeServiceMetier;
 import com.example.demo.ModelDTO.SaveVehiculeRequestDTO;
-
+import com.example.demo.ModelDTO.UpdatevehiculeRequestDTO;
 public class VehiculeServiceApp {
 
     private final VehiculeMapper vehiculeMapper;
@@ -36,7 +36,7 @@ public class VehiculeServiceApp {
     }
 
 
-    public VehiculeDTO updateVehicule(Long vehiculeId,  VehiculeDTO vehiculeUpdatedDTO){
+    public VehiculeDTO updateVehicule(Long vehiculeId,  UpdatevehiculeRequestDTO vehiculeUpdatedDTO){
 
         Vehicule vehicule = vehiculeMapper.toEntity(vehiculeUpdatedDTO);
         Vehicule vehiculeUpdated = vehiculeServiceMetier.updateVehicule(vehiculeId, vehicule);
