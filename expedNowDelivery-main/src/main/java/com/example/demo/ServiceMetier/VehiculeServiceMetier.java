@@ -10,7 +10,7 @@ public interface VehiculeServiceMetier {
     public Vehicule updateVehicule(Long vehiculeId, Vehicule vehiculeUpdated);
     public Vehicule SearchFirstVehiculeDsiponible();
     public List<Vehicule> SearchAllVehiculeDsiponible();
-    public Vehicule assignerVehicule(long livreurId);
+    public Vehicule assignerVehicule(Long vehiculeId,long livreurId);
     public Vehicule getById(Long id);
     public List<Vehicule> getAll();
 

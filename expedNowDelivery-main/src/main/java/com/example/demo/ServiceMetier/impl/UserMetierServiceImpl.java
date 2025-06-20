@@ -113,9 +113,9 @@ public User activateUser(Long id) {
                 .orElseThrow(() -> new EntityNotFoundException("Utilisateur non trouvé avec l'ID : " + id));
 
         // Mise à jour des champs
-        existingUser.setFullName(updatedUser.getFullName());
+        existingUser.setFirstName(updatedUser.getFirstName());
         existingUser.setPassword(updatedUser.getPassword()); // encoder si nécessaire
-        existingUser.setFullName(updatedUser.getFullName());
+        existingUser.setLastName(updatedUser.getLastName());
         existingUser.setEmail(updatedUser.getEmail());
         existingUser.setPhoneNumber(updatedUser.getPhoneNumber());
         existingUser.setRole(updatedUser.getRole());

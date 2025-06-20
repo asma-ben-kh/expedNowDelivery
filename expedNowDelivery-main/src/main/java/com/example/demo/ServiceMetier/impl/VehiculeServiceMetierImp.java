@@ -6,6 +6,7 @@ import com.example.demo.ServiceMetier.*;
 
 import com.example.demo.ModelDomain.Vehicule;
 import com.example.demo.ServiceMetier.VehiculeServiceMetier;
+import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.LivreurDejaAssignerVehiculeException;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.exception.VehiculeAlreadyExistException;
@@ -81,7 +82,7 @@ public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
 
         vehiculeExisting.setMatricule(vehiculeUpdated.getMatricule());
         vehiculeExisting.setNumSerie(vehiculeUpdated.getNumSerie());
-        vehiculeExisting.setLivreur(vehiculeUpdated.getLivreur());
+
 
 
         return vehiculeRepository.save(vehiculeExisting);
@@ -120,7 +121,7 @@ public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
 
    
    @Override
-    public Vehicule assignerVehicule(long livreurId){
+    public Vehicule assignerVehicule(Long vehiculeId , long livreurId){
 
       //recuperer livreur
       User livreur = userRepository.findById(livreurId).orElseThrow(() -> new NotFoundException("livreur introuvable"));
@@ -128,16 +129,17 @@ public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
       //verifie si le livreur a deja un vehicule
       if (livreur.getVehicule() != null){
 
-           throw new LivreurDejaAssignerVehiculeException("vehcicule deja assigner a ce livreur");          
+           throw new BadRequestException("vehcicule deja assigner a ce livreur");          
       }
 
       //chercher vehicule dispo
-     Vehicule vehiculeDispo = SearchFirstVehiculeDsiponible();
+     List<Vehicule> vehiculesDispo = SearchAllVehiculeDsiponible();
 
      //assigner c vehicule au livreur
-     livreur.setVehicule(vehiculeDispo);
+     livreur.setVehicule(vehiculesDispo);
 
      //marquer voiture comme non dispo
+     vehiculeDispo.setLivreur(livreur);
      vehiculeDispo.setDisponible(false);
 
      //saving

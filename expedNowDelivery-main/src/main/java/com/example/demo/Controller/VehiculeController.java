@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.ModelDTO.VehiculeDTO;
 import com.example.demo.ModelDomain.Vehicule;
 import com.example.demo.ServiceApplicatif.VehiculeServiceApp;
+import com.example.demo.ModelDTO.SaveVehiculeRequestDTO;
+
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/vehicules")
 public class VehiculeController {
 
     private final VehiculeServiceApp vehiculeServiceApp;
@@ -29,12 +31,18 @@ public class VehiculeController {
         this.vehiculeServiceApp = vehiculeServiceApp;
     }
 
-   @PostMapping("/saveVehicule")
-   public ResponseEntity<VehiculeDTO> saveVehicule(@RequestBody VehiculeDTO vehiculeDTO){
+   @PostMapping("/")
+   public ResponseEntity<VehiculeDTO> saveVehicule(@RequestBody  SaveVehiculeRequestDTO saveVehiculeRequestDTO){
 
-        VehiculeDTO saved = vehiculeServiceApp.saveVoiture(vehiculeDTO);
+        VehiculeDTO saved = vehiculeServiceApp.saveVoiture(saveVehiculeRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
 
+   }
+
+   @PutMapping("/{id}")
+   public ResponseEntity<VehiculeDTO> updateVehicule(@PathVariable Long id, @RequestBody  VehiculeDTO vehiculeDTO){
+      VehiculeDTO updatedvehicule  = vehiculeServiceApp.updateVehicule(id, vehiculeDTO);
+       return ResponseEntity.status(HttpStatus.OK).body(updatedvehicule);
    }
 
    @DeleteMapping("/{id}")
@@ -42,16 +50,6 @@ public class VehiculeController {
 
       vehiculeServiceApp.deleteVehicule(id);
       return ResponseEntity.noContent().build();
-   }
-
-   @PutMapping("/{id}")
-   public ResponseEntity<VehiculeDTO> updateVehicule(
-    @PathVariable Long id,
-    @RequestParam  VehiculeDTO vehiculeDTO)
-  
-    {
-      VehiculeDTO updatedvehicule  = vehiculeServiceApp.updateVehicule(id, vehiculeDTO);
-       return ResponseEntity.status(HttpStatus.OK).body(updatedvehicule);
    }
 
 
@@ -64,7 +62,7 @@ public class VehiculeController {
    }
 
 
-   @GetMapping("/getAll")
+   @GetMapping("/")
    public ResponseEntity<List<VehiculeDTO>> getAll(){
 
     List<VehiculeDTO> vehicule = vehiculeServiceApp.getAll();
@@ -80,10 +78,22 @@ public class VehiculeController {
 
    }
 
-   @PutMapping("/{livreurId}/assigner-vehicule")
-   public ResponseEntity<?> assignerVehiculeToLivreur(@PathVariable Long id){
+   @PutMapping("/assignment-auto/{livreurId}")
+    public ResponseEntity<?> assignerVehiculeToLivreurAuto(@PathVariable Long livreurId){
+
+     vehiculeServiceApp.assignerVehicule(livreurId);
+     return ResponseEntity.ok("Véhicule assigné avec succès");
+
+   }
+
+    @PutMapping("/{id}/assignment/{livreurId}")
+    public ResponseEntity<?> assignerVehiculeToLivreur(@PathVariable Long id,@PathVariable Long livreurId){
 
      vehiculeServiceApp.assignerVehicule(id);
-    return ResponseEntity.ok("Véhicule assigné avec succès");
+     return ResponseEntity.ok("Véhicule assigné avec succès");
+
    }
+
+
+
 }

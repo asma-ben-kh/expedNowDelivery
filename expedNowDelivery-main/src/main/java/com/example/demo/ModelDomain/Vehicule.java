@@ -38,7 +38,6 @@ public class Vehicule {
      @Column(unique = true)
      private String numSerie;
 
-
      
      @Column(nullable = false)
      private boolean disponible=true; 

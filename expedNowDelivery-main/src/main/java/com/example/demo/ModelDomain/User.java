@@ -31,7 +31,10 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private String fullName;
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
 
     @Column(nullable =  false)
     private String adress;
@@ -65,11 +68,13 @@ public class User {
 private double longitude;
 
 private boolean disponible = true;
+
 private boolean active = true;
 
-     public User(String address,String password, String fullName, double latitude, double longitude, String email, String phoneNumber,List<DemandeLivraison> demandesClient,List<Livraison> livraisonsLivreur, UserRole role,boolean disponible,boolean active,Notifications notifications,Vehicule vehicule,Livraison livraison) {
+     public User(String address,String password, String firstName,String lastName,double latitude, double longitude, String email, String phoneNumber,List<DemandeLivraison> demandesClient,List<Livraison> livraisonsLivreur, UserRole role,boolean disponible,boolean active,Notifications notifications,Vehicule vehicule,Livraison livraison) {
         this.password = password;
-        this.fullName = fullName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.role = role;
