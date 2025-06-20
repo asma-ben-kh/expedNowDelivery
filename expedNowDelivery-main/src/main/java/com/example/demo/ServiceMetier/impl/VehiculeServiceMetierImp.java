@@ -132,21 +132,28 @@ public class VehiculeServiceMetierImp  implements VehiculeServiceMetier{
            throw new BadRequestException("vehcicule deja assigner a ce livreur");          
       }
 
-      //chercher vehicule dispo
+      //chercher vehicules dispo
      List<Vehicule> vehiculesDispo = SearchAllVehiculeDsiponible();
+       
+     if (vehiculesDispo.isEmpty()) {
 
-     //assigner c vehicule au livreur
-     livreur.setVehicule(vehiculesDispo);
+        throw new NotFoundException("Aucun véhicule disponible");
+    }
+    
 
-     //marquer voiture comme non dispo
-     vehiculeDispo.setLivreur(livreur);
-     vehiculeDispo.setDisponible(false);
+     //selectionner l premier vehicule
+     Vehicule vehiculedispo = vehiculesDispo.get(0);
+
+      // 5. Mettre à jour les deux côtés de la relation
+     vehiculedispo.setLivreur(livreur);
+     vehiculedispo.setDisponible(false);
+     livreur.setVehicule(vehiculedispo);
 
      //saving
      userRepository.save(livreur);
-     vehiculeRepository.save(vehiculeDispo);
+     vehiculeRepository.save(vehiculedispo);
      
-    return vehiculeDispo;
+    return vehiculedispo;
     }
 
 }

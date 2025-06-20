@@ -19,6 +19,7 @@ import com.example.demo.ModelDTO.VehiculeDTO;
 import com.example.demo.ModelDomain.Vehicule;
 import com.example.demo.ServiceApplicatif.VehiculeServiceApp;
 import com.example.demo.ModelDTO.SaveVehiculeRequestDTO;
+import com.example.demo.ModelDTO.UpdatevehiculeRequestDTO;;
 
 
 @RestController
@@ -40,8 +41,8 @@ public class VehiculeController {
    }
 
    @PutMapping("/{id}")
-   public ResponseEntity<VehiculeDTO> updateVehicule(@PathVariable Long id, @RequestBody  VehiculeDTO vehiculeDTO){
-      VehiculeDTO updatedvehicule  = vehiculeServiceApp.updateVehicule(id, vehiculeDTO);
+   public ResponseEntity<VehiculeDTO> updateVehicule(@PathVariable Long id, @RequestBody UpdatevehiculeRequestDTO updatevehiculeRequestDTO ){
+      VehiculeDTO updatedvehicule  = vehiculeServiceApp.updateVehicule(id, updatevehiculeRequestDTO);
        return ResponseEntity.status(HttpStatus.OK).body(updatedvehicule);
    }
 

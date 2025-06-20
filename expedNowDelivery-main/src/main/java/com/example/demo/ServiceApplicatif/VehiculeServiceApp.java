@@ -67,9 +67,9 @@ public class VehiculeServiceApp {
     }
 
 
-      public VehiculeDTO assignerVehicule(long livreurId){
+      public VehiculeDTO assignerVehicule(Long vehiculeId,long livreurId){
        
-        Vehicule vehicule=   vehiculeServiceMetier.assignerVehicule(livreurId);
+        Vehicule vehicule=   vehiculeServiceMetier.assignerVehicule(vehiculeId, livreurId);
         return vehiculeMapper.toDto(vehicule);
 
       }

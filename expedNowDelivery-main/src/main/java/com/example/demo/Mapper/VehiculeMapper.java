@@ -25,6 +25,5 @@ public interface VehiculeMapper {
     Vehicule toEntity(VehiculeDTO vehiculeDTO);
     
     Vehicule toEntity(SaveVehiculeRequestDTO saveVehiculeRequestDTO);
-    
-    void updateVehiculeFromDTO(VehiculeDTO vehiculeDTO,@MappingTarget VehiculeDTO vehiculeDTOUpdated );
+
 }
