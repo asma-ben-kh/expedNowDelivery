@@ -55,14 +55,11 @@ public class User {
   //Vehicule est la proprietaire
   private Vehicule vehicule;
 
-  @OneToMany(mappedBy = "Livreur")
-  private Livraison livraison;
-
   @OneToMany(mappedBy = "client")
   private List<DemandeLivraison> demandesClient;
 
  @OneToMany(mappedBy = "livreur")
- private List<Livraison> livraisonsLivreur;
+ private List<Livraison> livraisons;
   
  private double latitude;
 private double longitude;
@@ -71,7 +68,7 @@ private boolean disponible = true;
 
 private boolean active = true;
 
-     public User(String address,String password, String firstName,String lastName,double latitude, double longitude, String email, String phoneNumber,List<DemandeLivraison> demandesClient,List<Livraison> livraisonsLivreur, UserRole role,boolean disponible,boolean active,Notifications notifications,Vehicule vehicule,Livraison livraison) {
+     public User(String address,String password, String firstName,String lastName,double latitude, double longitude, String email, String phoneNumber,List<DemandeLivraison> demandesClient,List<Livraison> livraisons, UserRole role,boolean disponible,boolean active,Notifications notifications,Vehicule vehicule) {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -82,12 +79,11 @@ private boolean active = true;
         this.latitude=latitude;
         this.longitude = longitude;
         this.vehicule =vehicule;
-        this.livraison =livraison;
+        this.livraisons =livraisons;
         this.adress = adress;
         this.disponible=disponible;
         this.active = active;
         this.demandesClient=demandesClient;
-        this.livraisonsLivreur = livraisonsLivreur;
     }
 
 

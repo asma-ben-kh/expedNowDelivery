@@ -17,13 +17,9 @@ public interface DemandeLivraisonMapper {
 
     DemandeLivraisonMapper INSTANCE = Mappers.getMapper(DemandeLivraisonMapper.class);
 
-    @Mapping(source = "client.id", target = "clientId")
-    @Mapping(source = "client.fullName", target = "clientFullName")
-    @Mapping(source ="client.longitude" ,target = "longitude")
-    @Mapping(source ="client.latitude" ,target = "longitude")
-    @Mapping(source="client.phoneNumber" , target = "phoneNumber")
-    DemandeLivraisonDTO toDto(DemandeLivraison entity);
-    DemandeLivraison toEntity (DemandeLivraisonDTO dto);
+    
+    DemandeLivraisonDTO toDto(DemandeLivraison demandeLivraison);
+    DemandeLivraison toEntity (DemandeLivraisonDTO demandeLivraisonDTO);
     List<DemandeLivraisonDTO> toDtoList(List<DemandeLivraison> demandes);
 
 

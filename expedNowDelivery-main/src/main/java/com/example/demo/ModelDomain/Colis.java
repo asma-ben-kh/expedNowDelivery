@@ -26,9 +26,9 @@ private String adresseDépart;
 
 private FragiliteColis fragiliteColis;
 
-@ManyToOne(optional = false)
-@JoinColumn(name = "colis")
-private DemandeLivraison demandeLivraison;
+@ManyToOne
+@JoinColumn(name = "demandeDeLivrasion_id")
+private DemandeLivraison demandeDeLivraison;
 
 
 

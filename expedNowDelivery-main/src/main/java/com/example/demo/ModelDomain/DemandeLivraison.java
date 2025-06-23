@@ -6,6 +6,7 @@ import java.util.List;
 import com.example.demo.ModelDomain.DemandeLivraisonStatus;
 import com.example.demo.ModelDomain.Livraison;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -38,7 +39,7 @@ public class DemandeLivraison {
     private User client;
 
     
-    @OneToMany(mappedBy = "colis")
+    @OneToMany(mappedBy = "demandeDeLivraison" , cascade = CascadeType.ALL , orphanRemoval = true)
     private List<Colis> colis;
 
        
